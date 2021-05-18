@@ -96,18 +96,18 @@ list.files(path = "./GSE132771/", pattern = "*.genes.tsv$", full.names = TRUE)
 list.files(path = "./GSE132771/", pattern = "*.barcodes.tsv$", full.names = TRUE)  
   
   
-#MATRIX CREATION (sample until I get it loaded with this dataset, but essentially just copy-paste the file paths from lines 94-96 into each "file =" =========================================================================================================
+#MATRIX CREATION (MAIN PART TO BE AUTOMATED essentially it is just just copy-paste the file paths from lines 94-96 into each "file =" =========================================================================================================
   
 #control group______________________________________________________________________________________  
-control_matrix <- readMM(file = './GSE119352/GSM3371684_Control_matrix.mtx')
+control_matrix <- readMM(file = './GSE119352/GSM3371684_Control_matrix.mtx') #copy-paste .mtx file path here
 control_matrix <- as.matrix(control_matrix)
   
 control_genes <- read.table(file = './GSE119352/GSM3371684_Control_genes.tsv', 
-                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE) #copy-paste .genes.tsv file path here
 rownames(control_matrix) <- control_genes[,2]
   
 control_barcodes <- read.table(file = './GSE119352/GSM3371684_Control_barcodes.tsv', 
-                                sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+                                sep = '\t', header = FALSE, stringsAsFactors = FALSE) #copy-paste .barcodes.tsv file path here
 colnames(control_matrix) <- control_barcodes[,1]
   
 colnames(control_matrix) <- paste(colnames(control_matrix), "control", sep = "_")
@@ -192,6 +192,21 @@ sobj <- subset(x = sobj, subset = nCount_RNA > 2432 & nCount_RNA < 21076)
 sobj <- NormalizeData(object = sobj, normalization.method = "LogNormalize", scale.factor = 10000)
 #make the features number the same number of variable genes you want to use
 sobj <- FindVariableFeatures(object = sobj, mean.function = ExpMean, dispersion.function = LogVMR, nfeatures = 2000)
+
+
+#scSORTER stuff ==================================================================================================================
+
+# Taken from: https://cran.r-project.org/web//packages/scSorter/vignettes/scSorter.html
+#expr = GetAssayData(expr_obj)
+#topgene_filter = rowSums(as.matrix(expr)[topgenes, ]!=0) > ncol(expr)*.1
+#topgenes = topgenes[topgene_filter]
+
+#picked_genes = unique(c(anno$Marker, topgenes))
+#expr = expr[rownames(expr) %in% picked_genes, ]
+
+rts <- scSorter(expr, anno)
+
+
 #if you don't want to wait all day, remove the "feature = rownames(sobj)" parameter
 sobj <- ScaleData(object = sobj, vars.to.regress = c("nCount_RNA", "percent.mito"), features = rownames(sobj), block.size = 2000)
 
