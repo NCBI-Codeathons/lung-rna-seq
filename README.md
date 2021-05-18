@@ -5,9 +5,6 @@ GSE128033, GSE166766, mouseBM/SCG71.loom
 
 **Working Methodology-** use nf-core framework for development of this pipeline (general information below) 
 
-
-# ![nf-core/teamrna](docs/images/nf-core-teamrna_logo.png)
-
 [![GitHub Actions CI Status](https://github.com/nf-core/teamrna/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-core/teamrna/actions?query=workflow%3A%22nf-core+CI%22)
 [![GitHub Actions Linting Status](https://github.com/nf-core/teamrna/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-core/teamrna/actions?query=workflow%3A%22nf-core+linting%22)
 [![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/teamrna/results)
