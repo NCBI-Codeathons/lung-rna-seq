@@ -77,6 +77,9 @@ library(velocyto.R)
   
 #LOADING IN DATA =========================================================================================================
  
+  library(BiocManager)
+  library(GEOquery) 
+ 
  #dataset to use :D https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166766 
  
 #Put NCBI GEO# into the inside of the parentheses. (ex. GSE12345)  
@@ -99,7 +102,14 @@ list.files(path = "./GSE166766/", pattern = "*.barcodes.tsv$", full.names = TRUE
   
   
 #MATRIX CREATION (MAIN PART TO BE AUTOMATED essentially it is just just copy-paste the file paths from lines 94-96 into each "file =" =========================================================================================================
-  
+ 
+  library(plyr)
+  library(dplyr) 
+  library(Matrix) 
+  library(Seurat) 
+  library(cowplot) 
+  library(SAVER) 
+ 
 #control group______________________________________________________________________________________  
 control_matrix <- readMM(file = './GSE119352/GSM3371684_Control_matrix.mtx') #copy-paste .mtx file path here
 control_matrix <- as.matrix(control_matrix)
@@ -139,6 +149,13 @@ aPD1_pdat <- data.frame("samples" = colnames(aPD1_matrix), "treatment" = "aPD1")
 
 # MERGING MATRICES FOR SEURAT OBJECT CREATION ===========================================================================================
 
+  library(plyr)
+  library(dplyr) 
+  library(Matrix) 
+  library(Seurat) 
+  library(cowplot) 
+  library(SAVER) 
+ 
 joined <- cbind(control_matrix,aPD1_matrix)
 #dim(joined)
 pdat <- rbind(control_pdat, aPD1_pdat)
@@ -165,6 +182,13 @@ slotNames(sobj[["RNA"]])
 
 #PRE-PROCESSING =============================================================================================================
 
+  library(plyr)
+  library(dplyr) 
+  library(Matrix) 
+  library(Seurat) 
+  library(cowplot) 
+  library(SAVER)
+ 
 mito.genes <- grep(pattern = "^MT\\.", x = rownames(sobj@assays[["RNA"]]), value = TRUE)
 #print(mito.genes)
 percent.mito <- Matrix::colSums(sobj@assays[["RNA"]][mito.genes, ])/Matrix::colSums(sobj@assays[["RNA"]])
@@ -198,6 +222,9 @@ sobj <- FindVariableFeatures(object = sobj, mean.function = ExpMean, dispersion.
 
 #scSORTER stuff ==================================================================================================================
 
+  library(scSorter)
+  library(Seurat)
+ 
 # Taken from: https://cran.r-project.org/web//packages/scSorter/vignettes/scSorter.html
 #expr = GetAssayData(expr_obj)
 #topgene_filter = rowSums(as.matrix(expr)[topgenes, ]!=0) > ncol(expr)*.1
@@ -215,6 +242,13 @@ sobj <- ScaleData(object = sobj, vars.to.regress = c("nCount_RNA", "percent.mito
 
 #PCA AND UMAP ===============================================================================================================================
 
+  library(plyr)
+  library(dplyr) 
+  library(Matrix) 
+  library(Seurat) 
+  library(cowplot) 
+  library(SAVER) 
+ 
 sobj <- RunPCA(sobj, npcs = 100, ndims.print = 1:10, nfeatures.print = 5)
 ElbowPlot(sobj, ndims = 100) #based on where base of "elbow" is, chooses number of principal components to use in dimension reduction
 
@@ -246,6 +280,14 @@ DimPlot(sobj, reduction = "umap", split.by = "treatment")
 
 #CLUSTER IDENTIFICATION (MANUAL) =================================================================================================
 
+library(plyr)
+library(Matrix)
+library(Seurat)
+library(ggplot2)
+library(cowplot)
+library(metap)
+library(multtest)
+ 
 #knowing which cluster is which_______________________________________________________________________________________
 preknownmarkerlist <- c("HAVCR2", "GZMB", "VCAM1", "PRF1",  
              "KLRC1", "CCL4", "LAG3", "CCL3")
@@ -263,6 +305,18 @@ DimPlot(sobj, split.by = "treatment")
 
 #DIFFERENTIAL GENE EXPRESSION ANALYSIS ===========================================================================================
 
+ 
+library(plyr)
+library(Matrix)
+library(Seurat)
+library(ggplot2)
+library(cowplot)
+library(metap)
+library(multtest)
+library(DESeq2)
+library(msigdbr)
+library(fgsea)
+ 
 markers <- FindAllMarkers(object = sobj, min.pct = 0.25, thresh.use = 0.25) 
 #markers <- markers[ markers$p_val_adj < 0.01, ] #can set p-value cutoff
 top.markers <- do.call(rbind, lapply(split(markers, markers$cluster), head))
@@ -271,6 +325,10 @@ DoHeatmap(sobj, features = top.markers$gene, group.bar = TRUE)
 
 #RNA Velocity Code ================================================================================================================
 
+library(Seurat)
+library(velocyto.R)
+library(SeuratWrappers)
+ 
 #See "Converting to/from loom" : https://satijalab.org/seurat/articles/conversion_vignette.html 
 #https://htmlpreview.github.io/?https://github.com/satijalab/seurat.wrappers/blob/master/docs/velocity.html 
 
