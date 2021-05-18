@@ -202,17 +202,17 @@ FeatureScatter(object = sobj, feature1 = "nCount_RNA", feature2 = "nFeature_RNA"
 
 #__________________________________________________________________________________________
 
-quantile(sobj@meta.data$nCount_RNA, 0.95)#95) # calculate value in the 95th percentile)
-quantile(sobj@meta.data$nCount_RNA, 0.05)#05)  
-quantile(sobj@meta.data$nFeature_RNA, 0.95) #0.9) 
-quantile(sobj@meta.data$nFeature_RNA, 0.05) #0.1) 
-quantile(sobj@meta.data$percent.mito, 0.05)
-quantile(sobj@meta.data$percent.mito, 0.95)
+ncountQup <- quantile(sobj@meta.data$nCount_RNA, 0.95)#95) # calculate value in the 95th percentile)
+ncountQlow <- quantile(sobj@meta.data$nCount_RNA, 0.05)#05)  
+nfeatQup <- quantile(sobj@meta.data$nFeature_RNA, 0.95) #0.9) 
+nfeatQlow <- quantile(sobj@meta.data$nFeature_RNA, 0.05) #0.1) 
+mitoQup <- quantile(sobj@meta.data$percent.mito, 0.05)
+mitoQlow <- quantile(sobj@meta.data$percent.mito, 0.95)
 
 #combo
-sobj <- subset(x = sobj, subset = nFeature_RNA > 1085 & nFeature_RNA < 4456)
-sobj <- subset(x = sobj, subset = percent.mito > 0.003 & percent.mito < 0.015)
-sobj <- subset(x = sobj, subset = nCount_RNA > 2432 & nCount_RNA < 21076)
+sobj <- subset(x = sobj, subset = nFeature_RNA > nfeatQlow & nFeature_RNA < nfeatQup)
+sobj <- subset(x = sobj, subset = percent.mito > mitoQlow & percent.mito < mitoQup)
+sobj <- subset(x = sobj, subset = nCount_RNA > ncountQlow & nCount_RNA < ncountQup)
 
 
 sobj <- NormalizeData(object = sobj, normalization.method = "LogNormalize", scale.factor = 10000)
