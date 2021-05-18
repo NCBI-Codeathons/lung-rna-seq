@@ -76,7 +76,9 @@ library(velocyto.R)
   
   
 #LOADING IN DATA =========================================================================================================
-  
+ 
+ #dataset to use :D https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166766 
+ 
 #Put NCBI GEO# into the inside of the parentheses. (ex. GSE12345)  
 filePaths = getGEOSuppFiles("GSE166766")  
   
