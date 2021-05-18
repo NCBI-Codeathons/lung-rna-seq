@@ -1,3 +1,11 @@
+**Overarching Project-** create an automated pipeline for single-cell RNA sequencing analysis that has UMAP visualization, automatic cell type identification (vi scSorter), differential gene expression analysis, and RNA velocity using the package velocyto. We also aim to link the databases Metascape and  genecards, and integrate the two datasets. The goal is to see both datasets individually and visualize similariteis and differences between them. For example, _what cell types are shared between these data? what genes are up- or down-regulated?_, etc. 
+
+To demonstrate our work's effectiveness, we will analyze the following ARDS datasets:
+GSE128033, GSE166766, mouseBM/SCG71.loom
+
+**Working Methodology-** use nf-core framework for development of this pipeline (general information below) 
+
+
 # ![nf-core/teamrna](docs/images/nf-core-teamrna_logo.png)
 
 [![GitHub Actions CI Status](https://github.com/nf-core/teamrna/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-core/teamrna/actions?query=workflow%3A%22nf-core+CI%22)
@@ -76,7 +84,7 @@ If you would like to contribute to this pipeline, please see the [contributing g
 
 For further information or help, don't hesitate to get in touch on the [Slack `#teamrna` channel](https://nfcore.slack.com/channels/teamrna) (you can join with [this invite](https://nf-co.re/join/slack)).
 
-## Citations
+## Citations (NF-CORE) 
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
 <!-- If you use  nf-core/teamrna for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
@@ -85,6 +93,12 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
 You can cite the `nf-core` publication as follows:
+
+## Other works of interest to our project
+https://genomemedicine.biomedcentral.com/articles/10.1186/s13073-017-0467-4
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7406263/
+https://www.biorxiv.org/content/10.1101/416719v2
+
 
 > **The nf-core framework for community-curated bioinformatics pipelines.**
 >
