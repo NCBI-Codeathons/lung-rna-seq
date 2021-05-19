@@ -94,18 +94,8 @@ library(GEOquery)
  #dataset to use :D https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166766 
  
 #Put NCBI GEO# into the inside of the parentheses. (ex. GSE12345)  
-filePaths = getGEOSuppFiles("GSE166766")  
-  
-#Copy paste the GEO12345 number between the "path = / /" sections   
-tarF <- list.files(path = "./GSE166766/", pattern = "*.tar", full.names = TRUE)  
-  
-#This will extract that single raw data file and unzip the files within it.  
-#Copy past the GEO12345 number between the "path = / /" sections  
-  
-untar(tarF, exdir = "./GSE166766/")  
-gzipF <- list.files(path = "./GSE166766/", pattern = "*.gz", full.names = TRUE)  
-ldply(.data = gzipF, .fun = gunzip)  
-  
+filePaths = getGEOSuppFiles(opt$id)
+
   
 list.files(path = "./GSE166766/", pattern = "\\.mtx$",full.names = TRUE) 
 list.files(path = "./GSE166766/", pattern = "*.genes.tsv$", full.names = TRUE)  
