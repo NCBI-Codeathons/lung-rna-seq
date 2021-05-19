@@ -68,6 +68,7 @@ workflow TEAMRNA {
 
     ch_software_versions = Channel.empty()
 
+    GEO_DOWNLOAD( ch_public_data_ids )
 
     /*
      * MODULE: Pipeline reporting
