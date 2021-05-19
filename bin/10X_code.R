@@ -72,9 +72,20 @@ library(fgsea)
 library(monocle3)
 library(velocyto.R)
 library(loomR)
+library(optparse)
   
+
+option_list <- list(
+    make_option(c("-i", "--matrix_file" ), type="character", default=NULL        , metavar="path"   , help=".mtx file"         ),
+    make_option(c("-g", "--genes"       ), type="character", default=NULL        , metavar="path" , help="genes.tsv"           ),
+    make_option(c("-b", "--barcodes"    ), type="character", default=NULL        , metavar="path" , help="barcodes.tsv"        ),
+    make_option(c("-o", "--outdir"      ), type="character", default='./'        , metavar="path"   , help="Output directory." ),
+    make_option(c("-c", "--cores"       ), type="integer"  , default=1           , metavar="integer", help="Number of cores."  ),
+    make_option(c("-d", "--id"          ), type="character", default='GSE166766' , metavar="string" , help="GEO Id"            )
+)
   
-  
+# TODO Handle bad args
+
 #LOADING IN DATA =========================================================================================================
  
 library(BiocManager)
