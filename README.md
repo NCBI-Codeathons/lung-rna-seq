@@ -88,16 +88,27 @@ nf-core/teamrna was originally written by Edmund Miller. Edmund Miller, Kaitlyn 
 
 ## Citations (NF-CORE) 
 [1] 	Kukurba, K. R.; Montgomery, S. B. RNA Sequencing and Analysis. Cold Spring Harb. Protoc. 2015, 2015 (11), 951–969.
+
 [2] 	Satija, R.; Farrell, J. A.; Gennert, D.; Schier, A. F.; Regev, A. Spatial Reconstruction of Single-Cell Gene Expression Data. Nat. Biotechnol. 2015, 33 (5), 495–502.
+
 [3] 	Butler, A.; Hoffman, P.; Smibert, P.; Papalexi, E.; Satija, R. Integrating Single-Cell Transcriptomic Data across Different Conditions, Technologies, and Species. Nat. Biotechnol. 2018, 36 (5), 411–420.
+
 [4] 	Hao, Y.; Hao, S.; Andersen-Nissen, E.; Mauck, W. M.; Zheng, S.; Butler, A.; Lee, M. J.; Wilk, A. J.; Darby, C.; Zagar, M.; et al. Integrated Analysis of Multimodal Single-Cell Data. bioRxiv. bioRxiv October 12, 2020.
+
 [5] 	Monocle 3 https://cole-trapnell-lab.github.io/monocle3/docs/citations/ (accessed May 19, 2021).
+
 [6] 	Trapnell, C.; Cacchiarelli, D.; Grimsby, J.; Pokharel, P.; Li, S.; Morse, M.; Lennon, N. J.; Livak, K. J.; Mikkelsen, T. S.; Rinn, J. L. The Dynamics and Regulators of Cell Fate Decisions Are Revealed by Pseudotemporal Ordering of Single Cells. Nat. Biotechnol. 2014, 32 (4), 381–386.
+
 [7] 	Qiu, X.; Mao, Q.; Tang, Y.; Wang, L.; Chawla, R.; Pliner, H. A.; Trapnell, C. Reversed Graph Embedding Resolves Complex Single-Cell Trajectories. Nat. Methods 2017, 14 (10), 979–982.
+
 [8] 	Qiu, X.; Hill, A.; Packer, J.; Lin, D.; Ma, Y. A.; Trapnell, C. Single-Cell MRNA Quantification and Differential Analysis with Census. Nat. Methods 2017, 14 (3), 309–315.
+
 [9] 	Cao, J.; Spielmann, M.; Qiu, X.; Huang, X.; Ibrahim, D. M.; Hill, A. J.; Zhang, F.; Mundlos, S.; Christiansen, L.; Steemers, F. J.; et al. The Single-Cell Transcriptional Landscape of Mammalian Organogenesis. Nature 2019, 566 (7745), 496–502.
+
 [10] 	Wolf, F. A.; Angerer, P.; Theis, F. J. SCANPY: Large-Scale Single-Cell Gene Expression Data Analysis. Genome Biol. 2018, 19 (1), 15.
+
 [11] 	Zhu, Q.; Fisher, S. A.; Dueck, H.; Middleton, S.; Khaladkar, M.; Kim, J. PIVOT: Platform for Interactive Analysis and Visualization of Transcriptomics Data. BMC Bioinformatics 2018, 19 (6), 1–8.
+
 [12] 	10x Genomics Cell Ranger 3.0.0. 2021.
 
 
