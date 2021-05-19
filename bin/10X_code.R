@@ -18,11 +18,11 @@ BiocManager::install("fgsea")
 
 
 #note, and I quote, "Monocle3 is hell to install". But here are their instructions:
-https://cole-trapnell-lab.github.io/monocle3/docs/installation/ 
+## https://cole-trapnell-lab.github.io/monocle3/docs/installation/
   
   
-  #installing velocyto.R (package for RNA velocity analysis) instructions
-  https://github.com/velocyto-team/velocyto.R
+#installing velocyto.R (package for RNA velocity analysis) instructions
+## https://github.com/velocyto-team/velocyto.R
 
 BiocManager::install("pcaMethods")
 library(devtools)
@@ -33,52 +33,52 @@ library(velocyto.R)
 
 #install LoomR (file type input into velocyto.R for RNA velocity analysis)
 (library(devtools)
-  devtools::install_github(repo = "hhoeflin/hdf5r")
-  install.packages("stringi")
-  devtools::install_github(repo = "mojaveazure/loomR", ref = "develop")
-  
-  
-  #Install SeuratWrappers if you need it (will need for RNA velocity)
-  install.packages("remotes")
-  install.packages("vctrs")
-  install.packages("lifecycle")
-  rtools <- "C:\\Rtools\\bin"
-  gcc <- "C:\\Rtools\\gcc-4.6.3\\bin"
-  path <- strsplit(Sys.getenv("PATH"), ";")[[1]]
-  new_path <- c(rtools, gcc, path)
-  new_path <- new_path[!duplicated(tolower(new_path))]
-  Sys.setenv(PATH = paste(new_path, collapse = ";"))
-  install.packages("ellipse")       # Install the dependent package ellipse
-  install.packages('/tmp/RtmpCAMbyw/filedabd3e2e7efe/SeuratWrappers_0.3.0.tar.gz',  type="source", repos=NULL)
+devtools::install_github(repo = "hhoeflin/hdf5r")
+install.packages("stringi")
+devtools::install_github(repo = "mojaveazure/loomR", ref = "develop")
+
+
+#Install SeuratWrappers if you need it (will need for RNA velocity)
+install.packages("remotes")
+install.packages("vctrs")
+install.packages("lifecycle")
+rtools <- "C:\\Rtools\\bin"
+gcc <- "C:\\Rtools\\gcc-4.6.3\\bin"
+path <- strsplit(Sys.getenv("PATH"), ";")[[1]]
+new_path <- c(rtools, gcc, path)
+new_path <- new_path[!duplicated(tolower(new_path))]
+Sys.setenv(PATH = paste(new_path, collapse = ";"))
+install.packages("ellipse")       # Install the dependent package ellipse
+install.packages('/tmp/RtmpCAMbyw/filedabd3e2e7efe/SeuratWrappers_0.3.0.tar.gz',  type="source", repos=NULL)
   
   
 #LIBRARIES ===============================================================================================================
   
-  library(BiocManager)
-  library(GEOquery) 
-  library(plyr)
-  library(dplyr) 
-  library(Matrix) 
-  library(devtools)
-  library(Seurat) 
-  library(ggplot2) 
-  library(cowplot) 
-  library(SAVER) 
-  library(metap)
-  library(multtest)
-  library(DESeq2)
-  library(msigdbr)
-  library(fgsea)
-  library(monocle3)
-  library(velocyto.R)
-  library(loomR)
+library(BiocManager)
+library(GEOquery)
+library(plyr)
+library(dplyr)
+library(Matrix)
+library(devtools)
+library(Seurat)
+library(ggplot2)
+library(cowplot)
+library(SAVER)
+library(metap)
+library(multtest)
+library(DESeq2)
+library(msigdbr)
+library(fgsea)
+library(monocle3)
+library(velocyto.R)
+library(loomR)
   
   
   
 #LOADING IN DATA =========================================================================================================
  
-  library(BiocManager)
-  library(GEOquery) 
+library(BiocManager)
+library(GEOquery)
  
  #dataset to use :D https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166766 
  
@@ -103,12 +103,12 @@ list.files(path = "./GSE166766/", pattern = "*.barcodes.tsv$", full.names = TRUE
   
 #MATRIX CREATION (MAIN PART TO BE AUTOMATED essentially it is just just copy-paste the file paths from lines 94-96 into each "file =" =========================================================================================================
  
-  library(plyr)
-  library(dplyr) 
-  library(Matrix) 
-  library(Seurat) 
-  library(cowplot) 
-  library(SAVER) 
+library(plyr)
+library(dplyr)
+library(Matrix)
+library(Seurat)
+library(cowplot)
+library(SAVER)
  
 #control group______________________________________________________________________________________  
 control_matrix <- readMM(file = './GSE119352/GSM3371684_Control_matrix.mtx') #copy-paste .mtx file path here
@@ -149,12 +149,12 @@ aPD1_pdat <- data.frame("samples" = colnames(aPD1_matrix), "treatment" = "aPD1")
 
 # MERGING MATRICES FOR SEURAT OBJECT CREATION ===========================================================================================
 
-  library(plyr)
-  library(dplyr) 
-  library(Matrix) 
-  library(Seurat) 
-  library(cowplot) 
-  library(SAVER) 
+library(plyr)
+library(dplyr)
+library(Matrix)
+library(Seurat)
+library(cowplot)
+library(SAVER)
  
 joined <- cbind(control_matrix,aPD1_matrix)
 #dim(joined)
@@ -182,12 +182,12 @@ slotNames(sobj[["RNA"]])
 
 #PRE-PROCESSING =============================================================================================================
 
-  library(plyr)
-  library(dplyr) 
-  library(Matrix) 
-  library(Seurat) 
-  library(cowplot) 
-  library(SAVER)
+library(plyr)
+library(dplyr)
+library(Matrix)
+library(Seurat)
+library(cowplot)
+library(SAVER)
  
 mito.genes <- grep(pattern = "^MT\\.", x = rownames(sobj@assays[["RNA"]]), value = TRUE)
 #print(mito.genes)
@@ -222,8 +222,8 @@ sobj <- FindVariableFeatures(object = sobj, mean.function = ExpMean, dispersion.
 
 #scSORTER stuff ==================================================================================================================
 
-  library(scSorter)
-  library(Seurat)
+library(scSorter)
+library(Seurat)
  
 # Taken from: https://cran.r-project.org/web//packages/scSorter/vignettes/scSorter.html
 #expr = GetAssayData(expr_obj)
@@ -242,12 +242,12 @@ sobj <- ScaleData(object = sobj, vars.to.regress = c("nCount_RNA", "percent.mito
 
 #PCA AND UMAP ===============================================================================================================================
 
-  library(plyr)
-  library(dplyr) 
-  library(Matrix) 
-  library(Seurat) 
-  library(cowplot) 
-  library(SAVER) 
+library(plyr)
+library(dplyr)
+library(Matrix)
+library(Seurat)
+library(cowplot)
+library(SAVER)
  
 sobj <- RunPCA(sobj, npcs = 100, ndims.print = 1:10, nfeatures.print = 5)
 ElbowPlot(sobj, ndims = 100) #based on where base of "elbow" is, chooses number of principal components to use in dimension reduction
