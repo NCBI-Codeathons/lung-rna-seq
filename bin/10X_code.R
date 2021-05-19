@@ -86,22 +86,6 @@ option_list <- list(
   
 # TODO Handle bad args
 
-#LOADING IN DATA =========================================================================================================
- 
-library(BiocManager)
-library(GEOquery)
- 
- #dataset to use :D https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166766 
- 
-#Put NCBI GEO# into the inside of the parentheses. (ex. GSE12345)  
-filePaths = getGEOSuppFiles(opt$id)
-
-  
-list.files(path = "./GSE166766/", pattern = "\\.mtx$",full.names = TRUE) 
-list.files(path = "./GSE166766/", pattern = "*.genes.tsv$", full.names = TRUE)  
-list.files(path = "./GSE166766/", pattern = "*.barcodes.tsv$", full.names = TRUE)  
-  
-  
 #MATRIX CREATION (MAIN PART TO BE AUTOMATED essentially it is just just copy-paste the file paths from lines 94-96 into each "file =" =========================================================================================================
  
 library(plyr)
