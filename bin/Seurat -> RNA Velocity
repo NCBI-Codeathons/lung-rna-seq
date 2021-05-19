@@ -1,0 +1,213 @@
+#PACKAGE INSTALLATIONS =====================================================
+
+install.packages('BiocManager') 
+BiocManager::install("GEOquery") 
+install.packages("plyr") 
+install.packages("dplyr")
+install.packages("Matrix") 
+BiocManager::install('multtest') 
+install.packages('metap')
+install.packages("Seurat") 
+install.packages('ggplot2') 
+install.packages("cowplot") 
+install.packages("devtools") 
+devtools::install_github("mohuangx/SAVER") 
+BiocManager::install("DESeq2")
+install.packages("msigdbr")
+BiocManager::install("fgsea")
+
+
+#note, and I quote, "Monocle3 is hell to install". But here are their instructions:
+https://cole-trapnell-lab.github.io/monocle3/docs/installation/ 
+  
+  
+  #installing velocyto.R (package for RNA velocity analysis) instructions
+  https://github.com/velocyto-team/velocyto.R
+
+BiocManager::install("pcaMethods")
+library(devtools)
+library(pcaMethods)
+install_github("velocyto-team/velocyto.R")
+library(velocyto.R)
+
+
+#install LoomR (file type input into velocyto.R for RNA velocity analysis)
+(library(devtools)
+  devtools::install_github(repo = "hhoeflin/hdf5r")
+  install.packages("stringi")
+  devtools::install_github(repo = "mojaveazure/loomR", ref = "develop")
+  
+  
+  #Install SeuratWrappers if you need it (will need for RNA velocity)
+  install.packages("remotes")
+  install.packages("vctrs")
+  install.packages("lifecycle")
+  rtools <- "C:\\Rtools\\bin"
+  gcc <- "C:\\Rtools\\gcc-4.6.3\\bin"
+  path <- strsplit(Sys.getenv("PATH"), ";")[[1]]
+  new_path <- c(rtools, gcc, path)
+  new_path <- new_path[!duplicated(tolower(new_path))]
+  Sys.setenv(PATH = paste(new_path, collapse = ";"))
+  install.packages("ellipse")       # Install the dependent package ellipse
+  install.packages('/tmp/RtmpCAMbyw/filedabd3e2e7efe/SeuratWrappers_0.3.0.tar.gz',  type="source", repos=NULL)
+  
+  
+#LIBRARIES ===============================================================================================================
+  
+  library(BiocManager)
+  library(GEOquery) 
+  library(plyr)
+  library(dplyr) 
+  library(Matrix) 
+  library(devtools)
+  library(Seurat) 
+  library(ggplot2) 
+  library(cowplot) 
+  library(SAVER) 
+  library(metap)
+  library(multtest)
+  library(DESeq2)
+  library(msigdbr)
+  library(fgsea)
+  library(monocle3)
+  library(velocyto.R)
+  library(loomR)
+  
+  
+  
+#LOADING IN DATA =========================================================================================================
+ 
+  library(BiocManager)
+  library(GEOquery) 
+ 
+ #dataset to use :D https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128033
+ 
+#Put NCBI GEO# into the inside of the parentheses. (ex. GSE12345)  
+filePaths = getGEOSuppFiles("GSE128033")  
+  
+#Copy paste the GEO12345 number between the "path = / /" sections   
+tarF <- list.files(path = "./GSE128033/", pattern = "*.tar", full.names = TRUE)  
+  
+#This will extract that single raw data file and unzip the files within it.  
+#Copy past the GEO12345 number between the "path = / /" sections  
+  
+untar(tarF, exdir = "./GSE128033/")  
+gzipF <- list.files(path = "./GSE128033/", pattern = "*.gz", full.names = TRUE)  
+ldply(.data = gzipF, .fun = gunzip)  
+  
+  
+list.files(path = "./GSE128033/", pattern = "\\.mtx$",full.names = TRUE) 
+list.files(path = "./GSE128033/", pattern = "*.genes.tsv$", full.names = TRUE)  
+list.files(path = "./GSE128033/", pattern = "*.barcodes.tsv$", full.names = TRUE)  
+  
+  
+#MATRIX CREATION (MAIN PART TO BE AUTOMATED essentially it is just just copy-paste the file paths from lines 94-96 into each "file =" =========================================================================================================
+ 
+  library(plyr)
+  library(dplyr) 
+  library(Matrix) 
+  library(Seurat) 
+  library(cowplot) 
+  library(SAVER) 
+ 
+#control group______________________________________________________________________________________  
+control_matrix <- readMM(file = './GSE119352/GSM3371684_Control_matrix.mtx') #copy-paste .mtx file path here
+control_matrix <- as.matrix(control_matrix)
+  
+control_genes <- read.table(file = './GSE119352/GSM3371684_Control_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE) #copy-paste .genes.tsv file path here
+rownames(control_matrix) <- control_genes[,2]
+  
+control_barcodes <- read.table(file = './GSE119352/GSM3371684_Control_barcodes.tsv', 
+                                sep = '\t', header = FALSE, stringsAsFactors = FALSE) #copy-paste .barcodes.tsv file path here
+colnames(control_matrix) <- control_barcodes[,1]
+  
+colnames(control_matrix) <- paste(colnames(control_matrix), "control", sep = "_")
+control_pdat <- data.frame("samples" = colnames(control_matrix), "treatment" = "control")
+
+#antiPD1 group ________________________________________________________________________________________
+aPD1_matrix <- readMM(file = './GSE119352/GSM3371685_aPD1_matrix.mtx')
+aPD1_matrix <- as.matrix(aPD1_matrix)
+aPD1_matrix[1:5,1:5]
+#dim(aPD1_matrix)
+
+aPD1_genes <- read.table(file = './GSE119352/GSM3371685_aPD1_genes.tsv', 
+                         sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+#dim(aPD1_genes)
+rownames(aPD1_matrix) <- aPD1_genes[,2]
+aPD1_matrix[1:5,1:5]
+
+aPD1_barcodes <- read.table(file = './GSE119352/GSM3371685_aPD1_barcodes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+#dim(aPD1_barcodes)
+colnames(aPD1_matrix) <- aPD1_barcodes[,1]
+aPD1_matrix[1:5,1:5]
+colnames(aPD1_matrix) <- paste(colnames(aPD1_matrix), "aPD1", sep = "_")
+
+aPD1_pdat <- data.frame("samples" = colnames(aPD1_matrix), "treatment" = "aPD1")
+
+
+# MERGING MATRICES FOR SEURAT OBJECT CREATION ===========================================================================================
+
+  library(plyr)
+  library(dplyr) 
+  library(Matrix) 
+  library(Seurat) 
+  library(cowplot) 
+  library(SAVER) 
+ 
+joined <- cbind(control_matrix,aPD1_matrix)
+#dim(joined)
+pdat <- rbind(control_pdat, aPD1_pdat)
+
+whole_gene_list <- rbind(control_genes, aPD1_genes) 
+genelist <- whole_gene_list[!duplicated(whole_gene_list$V1), ] 
+ 
+rownames(pdat) <- pdat$samples
+fdat <- toupper(as.matrix(genelist))
+
+rownames(fdat) <- fdat[,2]
+fdat <- data.frame(fdat)
+common_colnames <- c("ensembl_id", "gene_short_name")
+colnames(fdat) <- common_colnames
+
+rownames(joined) <- rownames(fdat)
+
+#Seurat Object Creation______________________________________________________
+sobj<- CreateSeuratObject(counts = joined)
+sobj<-AddMetaData(sobj,metadata=pdat)
+#head(sobj@meta.data, 5)
+
+sobj[["RNA"]]@meta.features<-fdat
+#head(sobj[["RNA"]]@meta.features)
+slotNames(sobj[["RNA"]])
+
+
+#RNA Velocity Code ================================================================================================================
+
+library(Seurat)
+library(velocyto.R)
+library(SeuratWrappers)
+ 
+#See "Converting to/from loom" : https://satijalab.org/seurat/articles/conversion_vignette.html 
+#https://htmlpreview.github.io/?https://github.com/satijalab/seurat.wrappers/blob/master/docs/velocity.html 
+
+# If you don't have velocyto's example mouse bone marrow dataset, download with the CURL command
+# curl::curl_download(url = 'http://pklab.med.harvard.edu/velocyto/mouseBM/SCG71.loom', destfile
+# = '~/Downloads/SCG71.loom')
+ldat <- ReadVelocity(file = "~/Downloads/SCG71.loom")
+bm <- as.Seurat(x = ldat)
+bm <- SCTransform(object = bm, assay = "spliced")
+bm <- RunPCA(object = bm, verbose = FALSE)
+bm <- FindNeighbors(object = bm, dims = 1:20)
+bm <- FindClusters(object = bm)
+bm <- RunUMAP(object = bm, dims = 1:20)
+bm <- RunVelocity(object = bm, deltaT = 1, kCells = 25, fit.quantile = 0.02)
+ident.colors <- (scales::hue_pal())(n = length(x = levels(x = bm)))
+names(x = ident.colors) <- levels(x = bm)
+cell.colors <- ident.colors[Idents(object = bm)]
+names(x = cell.colors) <- colnames(x = bm)
+show.velocity.on.embedding.cor(emb = Embeddings(object = bm, reduction = "umap"), vel = Tool(object = bm, 
+    slot = "RunVelocity"), n = 200, scale = "sqrt", cell.colors = ac(x = cell.colors, alpha = 0.5), 
+    cex = 0.8, arrow.scale = 3, show.grid.flow = TRUE, min.grid.cell.mass = 0.5, grid.n = 40, arrow.lwd = 1, 
+    do.par = FALSE, cell.border.alpha = 0.1)
