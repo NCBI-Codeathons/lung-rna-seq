@@ -1,9 +1,6 @@
 ## Project Overview
 Create an automated pipeline for single-cell RNA sequencing analysis that has UMAP visualization, automatic cell type identification (vi scSorter), differential gene expression analysis, and RNA velocity using the package velocyto. We also aim to link the databases Metascape and  genecards, and integrate the two datasets. The goal is to see both datasets individually and visualize similariteis and differences between them. For example, _what cell types are shared between these data? what genes are up- or down-regulated?_, etc. 
 
-To demonstrate our work's effectiveness, we will analyze the following ARDS dataset: GSE166766
-Reference: https://pubmed.ncbi.nlm.nih.gov/33730024/
-
 **Working Methodology-** use nf-core framework for development of this pipeline (general information below)
 
 **Automated Analysis-** cell sorter and RNA velocity
@@ -70,14 +67,19 @@ See [usage docs](https://nf-co.re/teamrna/usage) for all of the available option
 
 The nf-core/teamrna pipeline comes with documentation about the pipeline: [usage](https://nf-co.re/teamrna/usage) and [output](https://nf-co.re/teamrna/output).
 
+## Example
+To demonstrate our work's effectiveness, we will analyze the following ARDS dataset: GSE166766
+(Reference: https://pubmed.ncbi.nlm.nih.gov/33730024/)
+
+**Biological example-** compare normal (healthy patients) and damaged (COVID-19 afflicted patients) lung tissue.
+
+**Data-** single cell RNA seq data from human bronchial epithelial cells infected with SARS-CoV-2. The data provided in this example are in the most common scRNA-seq file format (matrix/gene/barcode) and the file sizes are a reasonable size for quick analysis.
+
+**Data collection-** differentiated human bronchial epithelial cells were infected with SARS-CoV-2 at 1, 2, and 3 days post-infection. Cells were then harvested and processed for single cell RNA-seq using the 10X Genomic platform. Generated libraries were sequenced on NovaSeq 6000 system using HiSeq 100 base pair reads and dual indexing.
+
 ## Credits
 
-nf-core/teamrna was originally written by Edmund Miller.
-
-We thank the following people for their extensive assistance in the development
-of this pipeline:
-
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+nf-core/teamrna was originally written by Edmund Miller. Edmund Miller, Kaitlyn Saunders, Yan Fang, and Alexa M. Salsbury contributed to the development of the pipeline and documentation throughout the NCBI North Texas Codeathon event (2021). 
 
 ## Contributions and Support
 
