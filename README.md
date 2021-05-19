@@ -9,6 +9,7 @@ Reference: https://pubmed.ncbi.nlm.nih.gov/33730024/
 **Automated Analysis-** cell sorter and RNA velocity
 
 ## Introduction
+RNA sequencing (RNA-seq) uses next-generation sequencing to examine the quantity of sequences in a biological sample. RNA-seq analyzes the transcriptome of gene expression patterns encoded within RNA during different physiological or pathological states. As such, RNA-seq can provide important information on fundamental biological processes as well as diseased states. Single-cell RNA sequencing (scRNA-seq), as the name suggests, is an RNA-seq approach that provides information on individual cells, allowing researchers to examine cell-to-cell differences an identify cell subtypes. Doing so provides more specific insight on cellular function within different physiological states. To ascertain such information from RNA-seq experiments, biologist must perform data analysis. 
 
 ## Methods
 
