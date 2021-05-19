@@ -160,8 +160,11 @@ joined <- cbind(control_matrix,aPD1_matrix)
 #dim(joined)
 pdat <- rbind(control_pdat, aPD1_pdat)
 
+whole_gene_list <- rbind(control_genes, aPD1_genes) 
+genelist <- whole_gene_list[!duplicated(whole_gene_list$V1), ] 
+ 
 rownames(pdat) <- pdat$samples
-fdat <- toupper(as.matrix(control_genes))
+fdat <- toupper(as.matrix(genelist))
 
 rownames(fdat) <- fdat[,2]
 fdat <- data.frame(fdat)
