@@ -23,6 +23,12 @@ On release, automated continuous integration tests run the pipeline on a full-si
 ## Pipeline summary
 
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+Pepline dependency:
+Seurat
+Monocle3
+scSORTER
+RNA Velocity
+
 
 1. Download data from NCBI GEO dataset
 2. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
