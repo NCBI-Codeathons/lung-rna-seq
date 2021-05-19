@@ -6,7 +6,12 @@ Create an automated pipeline for single-cell RNA sequencing analysis that has UM
 **Automated Analysis-** cell sorter and RNA velocity
 
 ## Introduction
-RNA sequencing (RNA-seq) uses next-generation sequencing to examine the quantity of sequences in a biological sample. RNA-seq analyzes the transcriptome of gene expression patterns encoded within RNA during different physiological or pathological states. As such, RNA-seq can provide important information on fundamental biological processes as well as diseased states. Single-cell RNA sequencing (scRNA-seq), as the name suggests, is an RNA-seq approach that provides information on individual cells, allowing researchers to examine cell-to-cell differences an identify cell subtypes. Doing so provides more specific insight on cellular function within different physiological states. To ascertain such information from RNA-seq experiments, biologist must perform data analysis. 
+RNA sequencing (RNA-seq) uses next-generation sequencing to examine the quantity of messenger RNA molecules in a biological sample and uses this transcriptomic information to extrapolate expression levels and changes in expression at the genomic level.[1] The ability to quantify genetic expression in different physiological or pathological states allows researchers to identify potential therapeutic targets and better understand the pathways underlying transitional processes from one state to another. Single-cell RNA sequencing (scRNA-seq), as the name suggests, is an RNA-seq approach that captures the transcriptome of individual cells, allowing researchers to identify cell subtypes and examine differences and similarities among these subtypes at the cellular level.[1]  Doing so provides increased resolution into cellular function within different physiological states. Both RNA- and single-cell RNA sequencing are computationally driven processes; as such, robust analysis pipelines with sound mathematical and biological are needed to drive data analysis and research.
+
+With over a decade of use, there are many publicly available resources to help researchers store, analyze, visualize, and share scRNA-seq data, such as Seurat,[2–4]  Monocle,[5–9] and Scanpy.[10] Many of these resources require domain specific biological knowledge as well as coding experience. To cater to biologists without previous coding experience, resources like PIVOT[11] and CellRanger[12] have been developed. While the availability of such programs improves scRNA-seq data analysis, researchers often must use a combination of several different programs per dataset to complete analysis. This workflow also leaves room for pre-existing biases to shape analyses at critical steps. For example, cell type identification is usually performed manually, meaning annotation is based on pre-existing knowledge of marker genes. These groups are then used for downstream analyses, so the possibility of manual error can shift the entire analysis and may prevent researchers from identifying cell types that they do not already know. 
+
+To address these issues, we have merged Seurat, Monocle, and velocyto into a single automated pipeline that is user-friendly. We are also appending the atumatic cell identification package scSorter to hep eliminate cell-identification bias and compare against a library of marker genes, making cell identification more expansive than manual identification. 
+ 
 
 ## Methods
 
@@ -81,26 +86,24 @@ To demonstrate our work's effectiveness, we will analyze the following ARDS data
 
 nf-core/teamrna was originally written by Edmund Miller. Edmund Miller, Kaitlyn Saunders, Yan Fang, and Alexa M. Salsbury contributed to the development of the pipeline and documentation throughout the NCBI North Texas Codeathon event (2021). 
 
-## Contributions and Support
-
-If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
-
-For further information or help, don't hesitate to get in touch on the [Slack `#teamrna` channel](https://nfcore.slack.com/channels/teamrna) (you can join with [this invite](https://nf-co.re/join/slack)).
-
 ## Citations (NF-CORE) 
+[1] 	Kukurba, K. R.; Montgomery, S. B. RNA Sequencing and Analysis. Cold Spring Harb. Protoc. 2015, 2015 (11), 951–969.
+[2] 	Satija, R.; Farrell, J. A.; Gennert, D.; Schier, A. F.; Regev, A. Spatial Reconstruction of Single-Cell Gene Expression Data. Nat. Biotechnol. 2015, 33 (5), 495–502.
+[3] 	Butler, A.; Hoffman, P.; Smibert, P.; Papalexi, E.; Satija, R. Integrating Single-Cell Transcriptomic Data across Different Conditions, Technologies, and Species. Nat. Biotechnol. 2018, 36 (5), 411–420.
+[4] 	Hao, Y.; Hao, S.; Andersen-Nissen, E.; Mauck, W. M.; Zheng, S.; Butler, A.; Lee, M. J.; Wilk, A. J.; Darby, C.; Zagar, M.; et al. Integrated Analysis of Multimodal Single-Cell Data. bioRxiv. bioRxiv October 12, 2020.
+[5] 	Monocle 3 https://cole-trapnell-lab.github.io/monocle3/docs/citations/ (accessed May 19, 2021).
+[6] 	Trapnell, C.; Cacchiarelli, D.; Grimsby, J.; Pokharel, P.; Li, S.; Morse, M.; Lennon, N. J.; Livak, K. J.; Mikkelsen, T. S.; Rinn, J. L. The Dynamics and Regulators of Cell Fate Decisions Are Revealed by Pseudotemporal Ordering of Single Cells. Nat. Biotechnol. 2014, 32 (4), 381–386.
+[7] 	Qiu, X.; Mao, Q.; Tang, Y.; Wang, L.; Chawla, R.; Pliner, H. A.; Trapnell, C. Reversed Graph Embedding Resolves Complex Single-Cell Trajectories. Nat. Methods 2017, 14 (10), 979–982.
+[8] 	Qiu, X.; Hill, A.; Packer, J.; Lin, D.; Ma, Y. A.; Trapnell, C. Single-Cell MRNA Quantification and Differential Analysis with Census. Nat. Methods 2017, 14 (3), 309–315.
+[9] 	Cao, J.; Spielmann, M.; Qiu, X.; Huang, X.; Ibrahim, D. M.; Hill, A. J.; Zhang, F.; Mundlos, S.; Christiansen, L.; Steemers, F. J.; et al. The Single-Cell Transcriptional Landscape of Mammalian Organogenesis. Nature 2019, 566 (7745), 496–502.
+[10] 	Wolf, F. A.; Angerer, P.; Theis, F. J. SCANPY: Large-Scale Single-Cell Gene Expression Data Analysis. Genome Biol. 2018, 19 (1), 15.
+[11] 	Zhu, Q.; Fisher, S. A.; Dueck, H.; Middleton, S.; Khaladkar, M.; Kim, J. PIVOT: Platform for Interactive Analysis and Visualization of Transcriptomics Data. BMC Bioinformatics 2018, 19 (6), 1–8.
+[12] 	10x Genomics Cell Ranger 3.0.0. 2021.
 
-<!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
-<!-- If you use  nf-core/teamrna for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
-An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
-You can cite the `nf-core` publication as follows:
+CITE NF-CORE <!-- If you use  nf-core/teamrna for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
-## Other works of interest to our project
-https://genomemedicine.biomedcentral.com/articles/10.1186/s13073-017-0467-4
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7406263/
-https://www.biorxiv.org/content/10.1101/416719v2
 
 
 > **The nf-core framework for community-curated bioinformatics pipelines.**
