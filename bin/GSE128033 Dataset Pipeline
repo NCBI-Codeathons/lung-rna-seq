@@ -1,0 +1,404 @@
+#PACKAGE INSTALLATIONS =====================================================
+
+install.packages('BiocManager') 
+BiocManager::install("GEOquery") 
+install.packages("plyr") 
+install.packages("dplyr")
+install.packages("Matrix") 
+BiocManager::install('multtest') 
+install.packages('metap')
+install.packages("Seurat") 
+install.packages('ggplot2') 
+install.packages("cowplot") 
+install.packages("devtools") 
+devtools::install_github("mohuangx/SAVER") 
+BiocManager::install("DESeq2")
+install.packages("msigdbr")
+BiocManager::install("fgsea")
+
+
+#note, and I quote, "Monocle3 is hell to install". But here are their instructions:
+https://cole-trapnell-lab.github.io/monocle3/docs/installation/ 
+  
+  
+  #installing velocyto.R (package for RNA velocity analysis) instructions
+  https://github.com/velocyto-team/velocyto.R
+
+BiocManager::install("pcaMethods")
+library(devtools)
+library(pcaMethods)
+install_github("velocyto-team/velocyto.R")
+library(velocyto.R)
+
+
+#install LoomR (file type input into velocyto.R for RNA velocity analysis)
+(library(devtools)
+  devtools::install_github(repo = "hhoeflin/hdf5r")
+  install.packages("stringi")
+  devtools::install_github(repo = "mojaveazure/loomR", ref = "develop")
+  
+  
+  #Install SeuratWrappers if you need it (probably not)
+  install.packages("remotes")
+  install.packages("vctrs")
+  install.packages("lifecycle")
+  rtools <- "C:\\Rtools\\bin"
+  gcc <- "C:\\Rtools\\gcc-4.6.3\\bin"
+  path <- strsplit(Sys.getenv("PATH"), ";")[[1]]
+  new_path <- c(rtools, gcc, path)
+  new_path <- new_path[!duplicated(tolower(new_path))]
+  Sys.setenv(PATH = paste(new_path, collapse = ";"))
+  install.packages("ellipse")       # Install the dependent package ellipse
+  install.packages('/tmp/RtmpCAMbyw/filedabd3e2e7efe/SeuratWrappers_0.3.0.tar.gz',  type="source", repos=NULL)
+  
+  
+#LIBRARIES ===============================================================================================================
+  
+  library(BiocManager)
+  library(GEOquery) 
+  library(plyr)
+  library(dplyr) 
+  library(Matrix) 
+  library(devtools)
+  library(Seurat) 
+  library(ggplot2) 
+  library(cowplot) 
+  library(SAVER) 
+  library(metap)
+  library(multtest)
+  library(DESeq2)
+  library(msigdbr)
+  library(fgsea)
+  library(monocle3)
+  library(velocyto.R)
+  library(loomR)
+  
+  
+  
+#LOADING IN DATA =========================================================================================================
+  
+#Put NCBI GEO# into the inside of the parentheses. (ex. GSE12345)  
+filePaths = getGEOSuppFiles("GSE128033")  
+  
+#Copy paste the GEO12345 number between the "path = / /" sections   
+tarF <- list.files(path = "./GSE128033/", pattern = "*.tar", full.names = TRUE)  
+  
+#This will extract that single raw data file and unzip the files within it.  
+#Copy past the GEO12345 number between the "path = / /" sections  
+  
+untar(tarF, exdir = "./GSE128033/")  
+gzipF <- list.files(path = "./GSE128033/", pattern = "*.gz", full.names = TRUE)  
+ldply(.data = gzipF, .fun = gunzip)  
+  
+  
+list.files(path = "./GSE128033/", pattern = "\\.mtx$",full.names = TRUE) 
+list.files(path = "./GSE128033/", pattern = "*.genes.tsv$", full.names = TRUE)  
+list.files(path = "./GSE128033/", pattern = "*.barcodes.tsv$", full.names = TRUE)  
+  
+  
+#SC14NOR (healthy)------------------------------------------------------------------------------
+SC14NOR_matrix <- readMM(file = './GSE128033//GSM3660641_SC14NOR_matrix.mtx')
+SC14NOR_matrix <- as.matrix(SC14NOR_matrix)
+  
+SC14NOR_genes <- read.table(file = './GSE128033//GSM3660641_SC14NOR_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC14NOR_matrix) <- SC14NOR_genes[,2]
+  
+SC14NOR_barcodes <- read.table(file = './GSE128033//GSM3660641_SC14NOR_barcodes.tsv', 
+                                sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC14NOR_matrix) <- SC14NOR_barcodes[,1]
+  
+colnames(SC14NOR_matrix) <- paste(colnames(SC14NOR_matrix), "healthy1", sep = "_")
+SC14NOR_pdat <- data.frame("samples" = colnames(SC14NOR_matrix), "treatment" = "healthy")
+  
+#SC31NOR (healthy)------------------------------------------------------------------------------
+SC31NOR_matrix <- readMM(file = './GSE128033//GSM3660642_SC31NOR_matrix.mtx')
+SC31NOR_matrix <- as.matrix(SC31NOR_matrix)
+
+SC31NOR_genes <- read.table(file = './GSE128033//GSM3660642_SC31NOR_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC31NOR_matrix) <- SC31NOR_genes[,2]
+
+SC31NOR_barcodes <- read.table(file = './GSE128033//GSM3660642_SC31NOR_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC31NOR_matrix) <- SC31NOR_barcodes[,1]
+
+colnames(SC31NOR_matrix) <- paste(colnames(SC31NOR_matrix), "healthy2", sep = "_")
+SC31NOR_pdat <- data.frame("samples" = colnames(SC31NOR_matrix), "treatment" = "healthy")
+
+#SC31DNOR (healthy)------------------------------------------------------------------------------
+SC31DNOR_matrix <- readMM(file = './GSE128033//GSM3660643_SC31DNOR_matrix.mtx')
+SC31DNOR_matrix <- as.matrix(SC31DNOR_matrix)
+
+SC31DNOR_genes <- read.table(file = './GSE128033//GSM3660643_SC31DNOR_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC31DNOR_matrix) <- SC31DNOR_genes[,2]
+
+SC31DNOR_barcodes <- read.table(file = '/GSE128033//GSM3660643_SC31DNOR_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC31DNOR_matrix) <- SC31DNOR_barcodes[,1]
+
+colnames(SC31DNOR_matrix) <- paste(colnames(SC31DNOR_matrix), "healthy3", sep = "_")
+SC31DNOR_pdat <- data.frame("samples" = colnames(SC31DNOR_matrix), "treatment" = "healthy")
+
+#SC45NOR (healthy)------------------------------------------------------------------------------
+SC45NOR_matrix <- readMM(file = './GSE128033//GSM3660644_SC45NOR_matrix.mtx')
+SC45NOR_matrix <- as.matrix(SC45NOR_matrix)
+
+SC45NOR_genes <- read.table(file = './GSE128033//GSM3660644_SC45NOR_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC45NOR_matrix) <- SC45NOR_genes[,2]
+
+SC45NOR_barcodes <- read.table(file = './GSE128033//GSM3660644_SC45NOR_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC45NOR_matrix) <- SC45NOR_barcodes[,1]
+
+colnames(SC45NOR_matrix) <- paste(colnames(SC45NOR_matrix), "healthy4", sep = "_")
+SC45NOR_pdat <- data.frame("samples" = colnames(SC45NOR_matrix), "treatment" = "healthy")
+
+#SC56NOR (healthy)------------------------------------------------------------------------------
+SC56NOR_matrix <- readMM(file = './GSE128033//GSM3660645_SC56NOR_matrix.mtx')
+SC56NOR_matrix <- as.matrix(SC56NOR_matrix)
+
+SC56NOR_genes <- read.table(file = './GSE128033//GSM3660645_SC56NOR_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC56NOR_matrix) <- SC56NOR_genes[,2]
+
+SC56NOR_barcodes <- read.table(file = './GSE128033//GSM3660645_SC56NOR_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC56NOR_matrix) <- SC56NOR_barcodes[,1]
+
+colnames(SC56NOR_matrix) <- paste(colnames(SC56NOR_matrix), "healthy5", sep = "_")
+SC56NOR_pdat <- data.frame("samples" = colnames(SC56NOR_matrix), "treatment" = "healthy")
+
+#SC59NOR (healthy)------------------------------------------------------------------------------
+SC59NOR_matrix <- readMM(file = './GSE128033//GSM3660646_SC59NOR_matrix.mtx')
+SC59NOR_matrix <- as.matrix(SC59NOR_matrix)
+
+SC59NOR_genes <- read.table(file = './GSE128033//GSM3660646_SC59NOR_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC59NOR_matrix) <- SC59NOR_genes[,2]
+
+SC59NOR_barcodes <- read.table(file = './GSE128033//GSM3660646_SC59NOR_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC59NOR_matrix) <- SC59NOR_barcodes[,1]
+
+colnames(SC59NOR_matrix) <- paste(colnames(SC59NOR_matrix), "healthy6", sep = "_")
+SC59NOR_pdat <- data.frame("samples" = colnames(SC59NOR_matrix), "treatment" = "healthy")
+
+#SC155NORlow (healthy)------------------------------------------------------------------------------
+SC155NOR_matrix <- readMM(file = './GSE128033//GSM3660647_SC155NORLOW_matrix.mtx')
+SC155NOR_matrix <- as.matrix(SC155NOR_matrix)
+
+SC155NOR_genes <- read.table(file = './GSE128033//GSM3660647_SC155NORLOW_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC155NOR_matrix) <- SC155NOR_genes[,2]
+
+SC155NOR_barcodes <- read.table(file = './GSE128033//GSM3660647_SC155NORLOW_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC155NOR_matrix) <- SC155NOR_barcodes[,1]
+
+colnames(SC155NOR_matrix) <- paste(colnames(SC155NOR_matrix), "healthy7", sep = "_")
+SC155NOR_pdat <- data.frame("samples" = colnames(SC155NOR_matrix), "treatment" = "healthy")
+
+#SC156NORup (healthy)------------------------------------------------------------------------------
+SC156NOR_matrix <- readMM(file = './GSE128033//GSM3660648_SC156NORUP_matrix.mtx')
+SC156NOR_matrix <- as.matrix(SC156NOR_matrix)
+
+SC156NOR_genes <- read.table(file = './GSE128033//GSM3660648_SC156NORUP_genes.tsv', 
+                             sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC156NOR_matrix) <- SC156NOR_genes[,2]
+
+SC156NOR_barcodes <- read.table(file = './GSE128033//GSM3660648_SC156NORUP_barcodes.tsv', 
+                                sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC156NOR_matrix) <- SC156NOR_barcodes[,1]
+
+colnames(SC156NOR_matrix) <- paste(colnames(SC156NOR_matrix), "healthy8", sep = "_")
+SC156NOR_pdat <- data.frame("samples" = colnames(SC156NOR_matrix), "treatment" = "healthy")
+
+#SC228NORbal frozen (healthy)------------------------------------------------------------------------------
+SC228NOR_matrix <- readMM(file = './GSE128033//GSM3660649_SC228NORbal_frozen_matrix.mtx')
+SC228NOR_matrix <- as.matrix(SC228NOR_matrix)
+
+SC228NOR_genes <- read.table(file = './GSE128033//GSM3660649_SC228NORbal_frozen_genes.tsv', 
+                             sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC228NOR_matrix) <- SC228NOR_genes[,2]
+
+SC228NOR_barcodes <- read.table(file = './GSE128033//GSM3660649_SC228NORbal_frozen_barcodes.tsv', 
+                                sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC228NOR_matrix) <- SC228NOR_barcodes[,1]
+
+colnames(SC228NOR_matrix) <- paste(colnames(SC228NOR_matrix), "healthy9", sep = "_")
+SC228NOR_pdat <- data.frame("samples" = colnames(SC228NOR_matrix), "treatment" = "healthy")
+
+#SC49NORbal fresh (healthy)------------------------------------------------------------------------------
+SC249NOR_matrix <- readMM(file = './GSE128033//GSM3660650_SC249NORbal_fresh_matrix.mtx')
+SC249NOR_matrix <- as.matrix(SC249NOR_matrix)
+
+SC249NOR_genes <- read.table(file = './GSE128033//GSM3660650_SC249NORbal_fresh_genes.tsv', 
+                             sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC249NOR_matrix) <- SC249NOR_genes[,2]
+
+SC249NOR_barcodes <- read.table(file = './GSE128033//GSM3660650_SC249NORbal_fresh_barcodes.tsv', 
+                                sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC249NOR_matrix) <- SC249NOR_barcodes[,1]
+
+colnames(SC249NOR_matrix) <- paste(colnames(SC249NOR_matrix), "healthy10", sep = "_")
+SC249NOR_pdat <- data.frame("samples" = colnames(SC249NOR_matrix), "treatment" = "healthy")
+
+#SC87 IPF (late IPF)------------------------------------------------------------------------------
+SC87IPF_matrix <- readMM(file = './GSE128033//GSM3660651_SC87IPFLOW_matrix.mtx')
+SC87IPF_matrix <- as.matrix(SC87IPF_matrix)
+
+SC87IPF_genes <- read.table(file = './GSE128033//GSM3660651_SC87IPFLOW_genes.tsv', 
+                             sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC87IPF_matrix) <- SC87IPF_genes[,2]
+
+SC87IPF_barcodes <- read.table(file = './GSE128033//GSM3660651_SC87IPFLOW_barcodes.tsv', 
+                                sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC87IPF_matrix) <- SC87IPF_barcodes[,1]
+
+colnames(SC87IPF_matrix) <- paste(colnames(SC87IPF_matrix), "late IPF1", sep = "_")
+SC87IPF_pdat <- data.frame("samples" = colnames(SC87IPF_matrix), "treatment" = "late IPF")
+
+#SC88 IPF (early IPF)------------------------------------------------------------------------------
+SC88IPF_matrix <- readMM(file = './GSE128033//GSM3660652_SC88IPFUP_matrix.mtx')
+SC88IPF_matrix <- as.matrix(SC88IPF_matrix)
+
+SC88IPF_genes <- read.table(file = './GSE128033//GSM3660652_SC88IPFUP_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC88IPF_matrix) <- SC88IPF_genes[,2]
+
+SC88IPF_barcodes <- read.table(file = './GSE128033//GSM3660652_SC88IPFUP_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC88IPF_matrix) <- SC88IPF_barcodes[,1]
+
+colnames(SC88IPF_matrix) <- paste(colnames(SC88IPF_matrix), "early IPF2", sep = "_")
+SC88IPF_pdat <- data.frame("samples" = colnames(SC88IPF_matrix), "treatment" = "early IPF")
+
+#SC89 IPF (late IPF)------------------------------------------------------------------------------
+SC89IPF_matrix <- readMM(file = './GSE128033//GSM3660653_SC89IPFLOW_matrix.mtx')
+SC89IPF_matrix <- as.matrix(SC89IPF_matrix)
+
+SC89IPF_genes <- read.table(file = './GSE128033//GSM3660653_SC89IPFLOW_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC89IPF_matrix) <- SC89IPF_genes[,2]
+
+SC89IPF_barcodes <- read.table(file = './GSE128033//GSM3660653_SC89IPFLOW_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC89IPF_matrix) <- SC89IPF_barcodes[,1]
+
+colnames(SC89IPF_matrix) <- paste(colnames(SC89IPF_matrix), "late IPF3", sep = "_")
+SC89IPF_pdat <- data.frame("samples" = colnames(SC89IPF_matrix), "treatment" = "late IPF")
+
+#SC93 IPF (late IPF)------------------------------------------------------------------------------
+SC93IPF_matrix <- readMM(file = './GSE128033//GSM3660654_SC93IPFLOW_matrix.mtx')
+SC93IPF_matrix <- as.matrix(SC93IPF_matrix)
+
+SC93IPF_genes <- read.table(file = './GSE128033//GSM3660654_SC93IPFLOW_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC93IPF_matrix) <- SC93IPF_genes[,2]
+
+SC93IPF_barcodes <- read.table(file = './GSE128033//GSM3660654_SC93IPFLOW_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC93IPF_matrix) <- SC93IPF_barcodes[,1]
+
+colnames(SC93IPF_matrix) <- paste(colnames(SC93IPF_matrix), "late IPF4", sep = "_")
+SC93IPF_pdat <- data.frame("samples" = colnames(SC93IPF_matrix), "treatment" = "late IPF")
+
+#SC94 IPF (early IPF)------------------------------------------------------------------------------
+SC94IPF_matrix <- readMM(file = './GSE128033//GSM3660655_SC94IPFUP_matrix.mtx')
+SC94IPF_matrix <- as.matrix(SC94IPF_matrix)
+
+SC94IPF_genes <- read.table(file = './GSE128033//GSM3660655_SC94IPFUP_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC94IPF_matrix) <- SC94IPF_genes[,2]
+
+SC94IPF_barcodes <- read.table(file = './GSE128033//GSM3660655_SC94IPFUP_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC94IPF_matrix) <- SC94IPF_barcodes[,1]
+
+colnames(SC94IPF_matrix) <- paste(colnames(SC94IPF_matrix), "early IPF5", sep = "_")
+SC94IPF_pdat <- data.frame("samples" = colnames(SC94IPF_matrix), "treatment" = "early IPF")
+
+#SC95 IPF (late IPF)------------------------------------------------------------------------------
+SC95IPF_matrix <- readMM(file = './GSE128033//GSM3660656_SC95IPFLOW_matrix.mtx')
+SC95IPF_matrix <- as.matrix(SC95IPF_matrix)
+
+SC95IPF_genes <- read.table(file = './GSE128033//GSM3660656_SC95IPFLOW_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC95IPF_matrix) <- SC95IPF_genes[,2]
+
+SC95IPF_barcodes <- read.table(file = './GSE128033//GSM3660656_SC95IPFLOW_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC95IPF_matrix) <- SC95IPF_barcodes[,1]
+
+colnames(SC95IPF_matrix) <- paste(colnames(SC95IPF_matrix), "late IPF6", sep = "_")
+SC95IPF_pdat <- data.frame("samples" = colnames(SC95IPF_matrix), "treatment" = "late IPF")
+
+#SC153 IPF (late IPF)------------------------------------------------------------------------------
+SC153IPF_matrix <- readMM(file = './GSE128033//GSM3660657_SC153IPFLOW_matrix.mtx')
+SC153IPF_matrix <- as.matrix(SC153IPF_matrix)
+
+SC153IPF_genes <- read.table(file = './GSE128033//GSM3660657_SC153IPFLOW_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC153IPF_matrix) <- SC153IPF_genes[,2]
+
+SC153IPF_barcodes <- read.table(file = './GSE128033//GSM3660657_SC153IPFLOW_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC153IPF_matrix) <- SC153IPF_barcodes[,1]
+
+colnames(SC153IPF_matrix) <- paste(colnames(SC153IPF_matrix), "late IPF7", sep = "_")
+SC153IPF_pdat <- data.frame("samples" = colnames(SC153IPF_matrix), "treatment" = "late IPF")
+
+#SC154 IPF (early IPF)------------------------------------------------------------------------------
+SC154IPF_matrix <- readMM(file = './GSE128033//GSM3660658_SC154IPFUP_matrix.mtx')
+SC154IPF_matrix <- as.matrix(SC154IPF_matrix)
+
+SC154IPF_genes <- read.table(file = './GSE128033//GSM3660658_SC154IPFUP_genes.tsv', 
+                            sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+rownames(SC154IPF_matrix) <- SC154IPF_genes[,2]
+
+SC154IPF_barcodes <- read.table(file = './GSE128033//GSM3660658_SC154IPFUP_barcodes.tsv', 
+                               sep = '\t', header = FALSE, stringsAsFactors = FALSE)
+colnames(SC154IPF_matrix) <- SC154IPF_barcodes[,1]
+
+colnames(SC154IPF_matrix) <- paste(colnames(SC154IPF_matrix), "early IPF8", sep = "_")
+SC154IPF_pdat <- data.frame("samples" = colnames(SC154IPF_matrix), "treatment" = "early IPF")
+
+
+# MERGING MATRICES FOR SEURAT OBJECT CREATION ===========================================================================================
+joined <- cbind(SC14NOR_matrix, SC31NOR_matrix, SC31DNOR_matrix, SC45NOR_matrix, SC56NOR_matrix,
+                SC59NOR_matrix, SC155NOR_matrix, SC156NOR_matrix, SC228NOR_matrix, SC249NOR_matrix,
+                SC87IPF_matrix, SC88IPF_matrix, SC89IPF_matrix, SC93IPF_matrix, SC94IPF_matrix,
+                SC95IPF_matrix, SC153IPF_matrix, SC154IPF_matrix)
+#dim(joined)
+pdat <- rbind(SC14NOR_pdat, SC31NOR_pdat, SC31DNOR_pdat, SC45NOR_pdat, SC56NOR_pdat,
+              SC59NOR_pdat, SC155NOR_pdat, SC156NOR_pdat, SC228NOR_pdat, SC249NOR_pdat,
+              SC87IPF_pdat, SC88IPF_pdat, SC89IPF_pdat, SC93IPF_pdat, SC94IPF_pdat,
+              SC95IPF_pdat, SC153IPF_pdat, SC154IPF_pdat)
+
+whole_gene_list <- rbind(SC14NOR_genes, SC31NOR_genes, SC31DNOR_genes, SC45NOR_genes, SC56NOR_genes, 
+                         SC59NOR_genes, SC155NOR_genes, SC156NOR_genes, SC228NOR_genes, SC249NOR_genes,
+                         SC87IPF_genes, SC88IPF_genes, SC89IPF_genes, SC93IPF_genes, SC94IPF_genes,
+                         SC95IPF_genes, SC153IPF_genes, SC154IPF_genes) 
+genelist <- whole_gene_list[!duplicated(whole_gene_list$V1), ] 
+
+rownames(pdat) <- pdat$samples
+fdat <- toupper(as.matrix(genelist))
+
+rownames(fdat) <- fdat[,2]
+fdat <- data.frame(fdat)
+common_colnames <- c("ensembl_id", "gene_short_name")
+colnames(fdat) <- common_colnames
+
+rownames(joined) <- rownames(fdat)
+
+#Seurat Object Creation______________________________________________________
+sobj<- CreateSeuratObject(counts = joined)
+sobj<-AddMetaData(sobj,metadata=pdat)
+#head(sobj@meta.data, 5)
+
+sobj[["RNA"]]@meta.features<-fdat
+#head(sobj[["RNA"]]@meta.features)
+slotNames(sobj[["RNA"]])
