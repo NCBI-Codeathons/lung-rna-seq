@@ -86,7 +86,7 @@ To demonstrate our work's effectiveness, we will analyze the following ARDS data
 
 nf-core/teamrna was originally written by Edmund Miller. Edmund Miller, Kaitlyn Saunders, Yan Fang, and Alexa M. Salsbury contributed to the development of the pipeline and documentation throughout the NCBI North Texas Codeathon event (2021). 
 
-## Citations (NF-CORE) 
+## Citations
 [1] 	Kukurba, K. R.; Montgomery, S. B. RNA Sequencing and Analysis. Cold Spring Harb. Protoc. 2015, 2015 (11), 951–969.
 
 [2] 	Satija, R.; Farrell, J. A.; Gennert, D.; Schier, A. F.; Regev, A. Spatial Reconstruction of Single-Cell Gene Expression Data. Nat. Biotechnol. 2015, 33 (5), 495–502.
