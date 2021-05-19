@@ -24,9 +24,9 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 Pepline dependency:
-Seurat
-Monocle3
-scSORTER
+Seurat,
+Monocle3,
+scSORTER,
 RNA Velocity
 
 
