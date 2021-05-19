@@ -68,8 +68,8 @@ See [usage docs](https://nf-co.re/teamrna/usage) for all of the available option
 The nf-core/teamrna pipeline comes with documentation about the pipeline: [usage](https://nf-co.re/teamrna/usage) and [output](https://nf-co.re/teamrna/output).
 
 ## Example
-To demonstrate our work's effectiveness, we will analyze the following ARDS dataset: GSE166766
-(Reference: https://pubmed.ncbi.nlm.nih.gov/33730024/)
+To demonstrate our work's effectiveness, we will analyze the following ARDS dataset: GSE128033
+(Reference: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8025672/)
 
 **Biological example-** compare normal (healthy patients) and damaged (COVID-19 afflicted patients) lung tissue.
 
