@@ -345,27 +345,22 @@ BiocManager::install(c('BiocGenerics', 'DelayedArray', 'DelayedMatrixStats',
                        'SummarizedExperiment', 'batchelor'))
 install.packages("devtools")
 devtools::install_github('cole-trapnell-lab/leidenbase')
-#devtools::install_github('cole-trapnell-lab/monocle3')
-devtools::install_github('cole-trapnell-lab/monocle3',ref='develop')
+devtools::install_github('cole-trapnell-lab/monocle3')
 install.packages("remotes")
 remotes::install_github("satijalab/seurat-wrappers")
-library(SeuratWrappers)
+
+ 
 library(monocle3)
 library(dplyr)
+library(SeuratWrappers)
 
-# convert the Seurat object to formmat used in monocle 3
-cds <- as.cell_data_set(sobj) # use seurat project sobj here
-# Generate a cell_data_set from 10X output
-#cds <- load_mm_data(mat_path = matrix_file, 
-#                    feature_anno_path = gene_file , 
-#                    cell_anno_path =  barcodes_file)
- 
-#Trajectory calculation
+
+DimPlot(Epcamsmartseq)
+cds <- as.cell_data_set(Epcamsmartseq) # use seurat project sobj here
 cds <- cluster_cells(cds = cds, reduction_method = "UMAP")
 cds <- learn_graph(cds, use_partition = TRUE)
 cds <- order_cells(cds, reduction_method = "UMAP")
-
-#pseudotime plot                 
+rowData(cds)$gene_short_name <- rownames(rowData(cds))
 plot_cells(cds,
            color_cells_by = "pseudotime",
            label_cell_groups=FALSE,
@@ -373,8 +368,6 @@ plot_cells(cds,
            label_branch_points=FALSE,
            graph_label_size=1.5)
 
-#plot gene in pseudotime
-AFD_genes <- c("Ly6c2", "Mki67", "Pltp", "Arg1", "Adgre1")
+AFD_genes <- c("Ly6c2")
 AFD_lineage_cds <- cds[rowData(cds)$gene_short_name %in% AFD_genes, ]
 plot_genes_in_pseudotime(AFD_lineage_cds, min_expr=0.5)
-
