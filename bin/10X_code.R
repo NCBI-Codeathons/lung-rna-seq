@@ -372,8 +372,8 @@ cds <- learn_graph(sobj.cds, use_partition = TRUE)
 cds <- order_cells(sobj.cds, reduction_method = "UMAP", root_cells = hsc)
 # Generate a cell_data_set from 10X output
 #cds <- load_mm_data(mat_path = matrix_file, 
-                    feature_anno_path = gene_file , 
-                    cell_anno_path =  barcodes_file)
+#                    feature_anno_path = gene_file , 
+#                    cell_anno_path =  barcodes_file)
  
 #Pre-process the data
 cds <- preprocess_cds(cds, num_dim = 100)
@@ -386,19 +386,7 @@ cds = cluster_cells(cds)
 cds <- learn_graph(cds)
 ## Order cells
 cds <- order_cells(cds)
-plot_cells(cds)
 
-#Find marker genes expressed by each cluster
-marker_test_res <- top_markers(cds, reference_cells=1000, cores=8)
-top_specific_markers <- marker_test_res %>%
-                            filter(fraction_expressing >= 0.10) %>%
-                            group_by(cell_group) %>%
-                            top_n(8, pseudo_R2)
-top_specific_marker_ids <- unique(top_specific_markers %>% pull(gene_id))
-plot_genes_by_group(cds,
-                    top_specific_marker_ids,
-                    ordering_type="cluster_row_col",
-                    max.size=3)
 library(stringr)
 colData(cds)$sample =  str_sub(rownames(colData(cds)),-1,-1)
 colData(cds_subset)$sample =  str_sub(rownames(colData(cds_subset)),-1,-1)
