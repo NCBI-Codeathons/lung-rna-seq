@@ -24,8 +24,14 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+1. Download data from NCBI GEO dataset
+2. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+3. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+4. Trajectory analysis uses monocle 3.
+5. Reduce dimensionality, clustering and visualize the cells.
+6. Find marker genes expressed by each cluster.
+7. Trajectory assignment.
+7. Pseudotime assign and plot gene along the pseudotime.
 
 ## Quick Start
 
