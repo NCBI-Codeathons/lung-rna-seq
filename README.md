@@ -5,6 +5,7 @@ To demonstrate our work's effectiveness, we will analyze the following ARDS data
 Reference: https://pubmed.ncbi.nlm.nih.gov/33730024/
 
 **Working Methodology-** use nf-core framework for development of this pipeline (general information below)
+
 **Automated Analysis-** cell sorter and RNA velocity
 
 ## Introduction
