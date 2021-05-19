@@ -371,7 +371,7 @@ cds <- cluster_cells(cds = sobj.cds, reduction_method = "UMAP")
 cds <- learn_graph(sobj.cds, use_partition = TRUE)
 cds <- order_cells(sobj.cds, reduction_method = "UMAP", root_cells = hsc)
 # Generate a cell_data_set from 10X output
-cds <- load_mm_data(mat_path = matrix_file, 
+#cds <- load_mm_data(mat_path = matrix_file, 
                     feature_anno_path = gene_file , 
                     cell_anno_path =  barcodes_file)
  
