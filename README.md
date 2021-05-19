@@ -10,6 +10,8 @@ Reference: https://pubmed.ncbi.nlm.nih.gov/33730024/
 
 ## Introduction
 
+## Methods
+
 <!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
 **nf-core/teamrna** is a bioinformatics best-practice analysis pipeline for Single Cell RNA-seq analysis pipeline.
 
