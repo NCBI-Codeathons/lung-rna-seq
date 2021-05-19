@@ -80,25 +80,25 @@ library(velocyto.R)
   library(BiocManager)
   library(GEOquery) 
  
- #dataset to use :D https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166766 
+ #dataset to use :D https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128033
  
 #Put NCBI GEO# into the inside of the parentheses. (ex. GSE12345)  
-filePaths = getGEOSuppFiles("GSE166766")  
+filePaths = getGEOSuppFiles("GSE128033")  
   
 #Copy paste the GEO12345 number between the "path = / /" sections   
-tarF <- list.files(path = "./GSE166766/", pattern = "*.tar", full.names = TRUE)  
+tarF <- list.files(path = "./GSE128033/", pattern = "*.tar", full.names = TRUE)  
   
 #This will extract that single raw data file and unzip the files within it.  
 #Copy past the GEO12345 number between the "path = / /" sections  
   
-untar(tarF, exdir = "./GSE166766/")  
-gzipF <- list.files(path = "./GSE166766/", pattern = "*.gz", full.names = TRUE)  
+untar(tarF, exdir = "./GSE128033/")  
+gzipF <- list.files(path = "./GSE128033/", pattern = "*.gz", full.names = TRUE)  
 ldply(.data = gzipF, .fun = gunzip)  
   
   
-list.files(path = "./GSE166766/", pattern = "\\.mtx$",full.names = TRUE) 
-list.files(path = "./GSE166766/", pattern = "*.genes.tsv$", full.names = TRUE)  
-list.files(path = "./GSE166766/", pattern = "*.barcodes.tsv$", full.names = TRUE)  
+list.files(path = "./GSE128033/", pattern = "\\.mtx$",full.names = TRUE) 
+list.files(path = "./GSE128033/", pattern = "*.genes.tsv$", full.names = TRUE)  
+list.files(path = "./GSE128033/", pattern = "*.barcodes.tsv$", full.names = TRUE)  
   
   
 #MATRIX CREATION (MAIN PART TO BE AUTOMATED essentially it is just just copy-paste the file paths from lines 94-96 into each "file =" =========================================================================================================
