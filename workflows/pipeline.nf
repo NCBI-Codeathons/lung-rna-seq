@@ -13,11 +13,13 @@ Workflow.validateWorkflowParams(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.fasta ]
+// TODO handle non-geo
+def checkPathParamList = [ params.public_data_ids, params.multiqc_config, params.fasta ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
-if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
+// TODO handle non-geo
+// if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
 
 ////////////////////////////////////////////////////
 /* --          CONFIG FILES                    -- */
@@ -40,15 +42,24 @@ multiqc_options.args += params.multiqc_title ? " --title \"$params.multiqc_title
 include { GET_SOFTWARE_VERSIONS } from '../modules/local/get_software_versions'   addParams( options: [publish_files : ['csv':'']] )
 
 // Modules: nf-core/modules
-include { FASTQC                } from '../modules/nf-core/software/fastqc/main'  addParams( options: modules['fastqc']            )
 include { MULTIQC               } from '../modules/nf-core/software/multiqc/main' addParams( options: multiqc_options              )
 
 // Subworkflows: local
-include { INPUT_CHECK           } from '../subworkflows/local/input_check'        addParams( options: [:]                          )
 
 ////////////////////////////////////////////////////
 /* --           RUN MAIN WORKFLOW              -- */
 ////////////////////////////////////////////////////
+
+if (params.public_data_ids) {
+    Channel
+        .from(file(params.public_data_ids, checkIfExists: true))
+        .splitCsv(header:false, sep:'', strip:true)
+        .map { it[0] }
+        .unique()
+        .set { ch_public_data_ids }
+} else {
+    exit 1, 'Input file with public database ids not specified!'
+}
 
 // Info required for completion email and summary
 def multiqc_report = []
@@ -57,21 +68,6 @@ workflow TEAMRNA {
 
     ch_software_versions = Channel.empty()
 
-    /*
-     * SUBWORKFLOW: Read in samplesheet, validate and stage input files
-     */
-    INPUT_CHECK ( 
-        ch_input
-    )
-
-    /*
-     * MODULE: Run FastQC
-     */
-    FASTQC (
-        INPUT_CHECK.out.reads
-    )
-    ch_software_versions = ch_software_versions.mix(FASTQC.out.version.first().ifEmpty(null))
-    
 
     /*
      * MODULE: Pipeline reporting
