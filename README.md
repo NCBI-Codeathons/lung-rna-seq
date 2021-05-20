@@ -78,14 +78,25 @@ The **nf-core/teamrna** pipeline comes with documentation about the pipeline: [u
 
 To demonstrate our work's effectiveness, we will analyze the following mouse cancer model dataset: GSE119352
 (Reference: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6501221/)
+ 
+To demonstrate the effectiveness of the RNA velocity pipeline, we used this mouse bone marrow set provided by the velocyto team: http://pklab.med.harvard.edu/velocyto/notebooks/R/SCG71.nb.html (“mouseBM.loom”)
+ 
+ 
+**Biological example-** 
+GSE119352: compare tumor microenvironment populations between control, anti-PD1 treated, anti-CTLA4, and a combination of the latter two.
 
-To demonstrate the effectiveness of the RNA velocity pipeline, 
+mouseBM.loom: observe transcriptional dynamics of neutrophil maturation in mouse bone marrow
 
-**Biological example-** compare tumor microenvironment populations between control, anti-PD1 treated, anti-CTLA4, and a combination of the latter two.
+**Data-** 
+GSE119352: four samples of CD45+ cells from syngeneic mice, with one sample being treated with IgG2a isotype control antibodies, another with anti-PD1, with anti-CTLA4, and both anti-PD1 and anti-CTLA4 treatments.
+mouseBM.loom: Whole bone marrow cells isolated from C57BI/6 mice
 
-**Data-** four samples of CD45+ cells from syngeneic mice, with one sample being treated with IgG2a isotype control antibodies, another with anti-PD1, with anti-CTLA4, and both anti-PD1 and anti-CTLA4 treatments.
-
-**Data collection-** CD45+ tumor infiltrating cells were sorted into droplets from syngeneic mice using the Chromium Single Cell 3' Reagent Kit v1 from 10X Genomics. The resulting libraries were then sequenced using Illumina HiSeq2500.
+**Data collection-** 
+GSE119352: CD45+ tumor infiltrating cells were sorted into droplets from syngeneic mice using the Chromium Single Cell 3' Reagent Kit v1 from 10X Genomics. The resulting libraries were then sequenced using Illumina HiSeq2500.
+mouseBM.loom: The bone marrow cells were prepared with inDrop and sequenced using Illumina Next-seq 500.
+ 
+**Data-**
+GSE92332: whole intestines from wild type mice, disaggregated the samples, sorted into single cells and profiled them by single-cell RNA-seq. GSE92332_AtlasFullLength_TPM.txt.gz
 
 ## Credits
 
