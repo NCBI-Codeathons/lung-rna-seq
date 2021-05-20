@@ -1,9 +1,5 @@
 ## All in one scRNA-seq Pipeline: _Data Downloading to Analysis_
-Create an automated pipeline for single-cell RNA sequencing analysis that has UMAP visualization, automatic cell type identification (vi scSorter), differential gene expression analysis, and RNA velocity using the package velocyto. We also aim to link the databases Metascape and  genecards, and integrate the two datasets. The goal is to see both datasets individually and visualize similariteis and differences between them. For example, _what cell types are shared between these data? what genes are up- or down-regulated?_, etc. 
-
-**Working Methodology-** use nf-core framework for development of this pipeline (general information below)
-
-**Automated Analysis-** cell sorter and RNA velocity
+The goal of this project was to create an automated pipeline for single-cell RNA sequencing analysis that has UMAP visualization, automatic cell type identification (vi scSorter), differential gene expression analysis, and RNA velocity using the package velocyto. We also aimed to link the databases Metascape and  genecards, and integrate the two datasets. We used the nf-core framework for development of this pipeline (more information below). 
 
 ## Overview
 
