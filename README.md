@@ -1,17 +1,21 @@
-## Project Overview
+## All in one scRNA-seq Pipeline: _Data Downloading to Analysis_
 Create an automated pipeline for single-cell RNA sequencing analysis that has UMAP visualization, automatic cell type identification (vi scSorter), differential gene expression analysis, and RNA velocity using the package velocyto. We also aim to link the databases Metascape and  genecards, and integrate the two datasets. The goal is to see both datasets individually and visualize similariteis and differences between them. For example, _what cell types are shared between these data? what genes are up- or down-regulated?_, etc. 
 
 **Working Methodology-** use nf-core framework for development of this pipeline (general information below)
 
 **Automated Analysis-** cell sorter and RNA velocity
 
-## Introduction
+## Overview
+
 RNA sequencing (RNA-seq) uses next-generation sequencing to examine the quantity of messenger RNA molecules in a biological sample and uses this transcriptomic information to extrapolate expression levels and changes in expression at the genomic level.[1] The ability to quantify genetic expression in different physiological or pathological states allows researchers to identify potential therapeutic targets and better understand the pathways underlying transitional processes from one state to another. Single-cell RNA sequencing (scRNA-seq), as the name suggests, is an RNA-seq approach that captures the transcriptome of individual cells, allowing researchers to identify cell subtypes and examine differences and similarities among these subtypes at the cellular level.[1]  Doing so provides increased resolution into cellular function within different physiological states. Both RNA- and single-cell RNA sequencing are computationally driven processes; as such, robust analysis pipelines with sound mathematical and biological are needed to drive data analysis and research.
 
-With over a decade of use, there are many publicly available resources to help researchers store, analyze, visualize, and share scRNA-seq data, such as Seurat,[2–4]  Monocle,[5–9] and Scanpy.[10] Many of these resources require domain specific biological knowledge as well as coding experience. To cater to biologists without previous coding experience, resources like PIVOT[11] and CellRanger[12] have been developed. While the availability of such programs improves scRNA-seq data analysis, researchers often must use a combination of several different programs per dataset to complete analysis. This workflow also leaves room for pre-existing biases to shape analyses at critical steps. For example, cell type identification is usually performed manually, meaning annotation is based on pre-existing knowledge of marker genes. These groups are then used for downstream analyses, so the possibility of manual error can shift the entire analysis and may prevent researchers from identifying cell types that they do not already know. 
+With over a decade of use, there are many publicly available resources to help researchers store, analyze, visualize, and share scRNA-seq data, such as Seurat,[2–4]  Monocle,[5–9] and Scanpy.[10] Many of these resources require domain specific biological knowledge as well as coding experience. To cater to biologists without previous coding experience, resources like PIVOT[11], CellRanger[12], velocyto,[13] and more have been developed. While the availability of such programs improves scRNA-seq data analysis, researchers often must use a combination of several different programs per dataset to complete analysis. This workflow also leaves room for pre-existing biases to shape analyses at critical steps. For example, cell type identification is usually performed manually, meaning annotation is based on pre-existing knowledge of marker genes. These groups are then used for downstream analyses, so the possibility of manual error can shift the entire analysis and may prevent researchers from identifying cell types that they do not already know. 
 
-To address these issues, we have merged Seurat, Monocle, and velocyto into a single automated pipeline that is user-friendly. We are also appending the automatic cell identification package scSorter to hep eliminate cell-identification bias and compare against a library of marker genes, making cell identification more expansive than manual identification. 
- 
+To address these issues, we have merged Seurat, Monocle, and velocyto into a single automated pipeline that is user-friendly. We are also appending the atumatic cell identification package scSorter to hep eliminate cell-identification bias and compare against a library of marker genes, making cell identification more expansive than manual identification. The overview of our pipeline is detailed below. 
+
+![image](https://user-images.githubusercontent.com/81252641/119006398-550e5880-b95e-11eb-8f19-8cdc99811efe.png)
+**Pipeline Workflow.** Solid lines represent the steps our pipeline supports, while dashed lines indicate future improvements on this pipeline.
+
 
 ## Methods
 
@@ -115,13 +119,16 @@ CITE NF-CORE <!-- If you use  nf-core/teamrna for your analysis, please cite it 
 
 [8] 	Qiu, X.; Hill, A.; Packer, J.; Lin, D.; Ma, Y. A.; Trapnell, C. Single-Cell MRNA Quantification and Differential Analysis with Census. Nat. Methods 2017, 14 (3), 309–315.
 
-[9] 	Cao, J.; Spielmann, M.; Qiu, X.; Huang, X.; Ibrahim, D. M.; Hill, A. J.; Zhang, F.; Mundlos, S.; Christiansen, L.; Steemers, F. J.; et al. The Single-Cell Transcriptional Landscape of Mammalian Organogenesis. Nature 2019, 566 (7745), 496–502.
+[9]	Cao, J.; Spielmann, M.; Qiu, X.; Huang, X.; Ibrahim, D. M.; Hill, A. J.; Zhang, F.; Mundlos, S.; Christiansen, L.; Steemers, F. J.; et al. The Single-Cell Transcriptional Landscape of Mammalian Organogenesis. Nature 2019, 566 (7745), 496–502.
 
 [10] 	Wolf, F. A.; Angerer, P.; Theis, F. J. SCANPY: Large-Scale Single-Cell Gene Expression Data Analysis. Genome Biol. 2018, 19 (1), 15.
 
 [11] 	Zhu, Q.; Fisher, S. A.; Dueck, H.; Middleton, S.; Khaladkar, M.; Kim, J. PIVOT: Platform for Interactive Analysis and Visualization of Transcriptomics Data. BMC Bioinformatics 2018, 19 (6), 1–8.
 
 [12] 	10x Genomics Cell Ranger 3.0.0. 2021.
+
+[13] 	La Manno, G.; Soldatov, R.; Zeisel, A.; Braun, E.; Hochgerner, H.; Petukhov, V.; Lidschreiber, K.; Kastriti, M. E.; Lönnerberg, P.; Furlan, A.; et al. RNA Velocity of Single Cells. Nature 2018, 560 (7719), 494–498.
+
 
 
 
