@@ -9,7 +9,7 @@ With over a decade of use, there are many publicly available resources to help r
 
 To address these issues, we have merged Seurat, Monocle, and velocyto into a single automated pipeline that is user-friendly. We are also appending the atumatic cell identification package scSorter to hep eliminate cell-identification bias and compare against a library of marker genes, making cell identification more expansive than manual identification. The overview of our pipeline is detailed below. 
 
-![image](https://user-images.githubusercontent.com/81252641/119006398-550e5880-b95e-11eb-8f19-8cdc99811efe.png)
+![image](https://user-images.githubusercontent.com/81252641/119032089-cad3ed80-b979-11eb-850b-5e08ada341b9.png)
 
 **Pipeline Workflow.** Solid lines represent the steps our pipeline supports, while dashed lines indicate future improvements on this pipeline.
 
