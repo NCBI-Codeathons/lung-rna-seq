@@ -85,10 +85,11 @@ To demonstrate our work's effectiveness, we will analyze the following ARDS data
 
 ## Credits
 
-nf-core/teamrna was originally written by Edmund Miller. Edmund Miller, Kaitlyn Saunders, Yan Fang, and Alexa M. Salsbury contributed to the development of the pipeline and documentation throughout the NCBI North Texas Codeathon event (2021). 
+nf-core/teamrna was originally written by Edmund Miller. Edmund Miller, Yan Fang, Alexa M. Salsbury, and Kaitlyn Saunders contributed to the development of the pipeline and documentation throughout the NCBI North Texas Codeathon event (2021). 
 
 ## Citation
 If you find that our pipeline helped you to analyze single cell RNA-seq datasets, please reference the following:
+E. Miller, Y. Fang, A. Salsbury, and K. Saunders. All in one scRNA-seq Pipeline: Data Downloading to Analysis. 2021. _https://github.com/NCBI-Codeathons/lung-rna-seq_. 
 
 CITE NF-CORE <!-- If you use  nf-core/teamrna for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
