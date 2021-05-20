@@ -74,6 +74,7 @@ See [usage docs](https://nf-co.re/teamrna/usage) for all of the available option
 The **nf-core/teamrna** pipeline comes with documentation about the pipeline: [usage](https://nf-co.re/teamrna/usage) and [output](https://nf-co.re/teamrna/output).
 
 ## Example
+**Demo here-** https://asciinema.org/a/WRFzjoXYLOmiGOwJiALt5g0D2
 To demonstrate our work's effectiveness, we will analyze the following ARDS dataset: GSE128033
 (Reference: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8025672/)
 
