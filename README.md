@@ -1,5 +1,5 @@
 ## All in one scRNA-seq Pipeline: _Data Downloading to Analysis_
-The goal of this project was to create an automated pipeline for single-cell RNA sequencing analysis that has UMAP visualization, automatic cell type identification (vi scSorter), differential gene expression analysis, and RNA velocity using the package velocyto. We also aimed to link the databases Metascape and  genecards, and integrate the two datasets. We used the nf-core framework for development of this pipeline (more information below). 
+The goal of this project was to create an automated pipeline (**nf-core/teamrna**) for single-cell RNA sequencing analysis that has UMAP visualization, automatic cell type identification (vi scSorter), differential gene expression analysis, and RNA velocity using the package velocyto. We also aimed to link the databases Metascape and  genecards, and integrate the two datasets. We used the nf-core framework for development of this pipeline (more information below). 
 
 ## Overview
 
@@ -71,7 +71,7 @@ See [usage docs](https://nf-co.re/teamrna/usage) for all of the available option
 
 ## Documentation
 
-The nf-core/teamrna pipeline comes with documentation about the pipeline: [usage](https://nf-co.re/teamrna/usage) and [output](https://nf-co.re/teamrna/output).
+The **nf-core/teamrna** pipeline comes with documentation about the pipeline: [usage](https://nf-co.re/teamrna/usage) and [output](https://nf-co.re/teamrna/output).
 
 ## Example
 To demonstrate our work's effectiveness, we will analyze the following ARDS dataset: GSE128033
@@ -85,7 +85,7 @@ To demonstrate our work's effectiveness, we will analyze the following ARDS data
 
 ## Credits
 
-**nf-core/lung-rna-seq** was originally written by Edmund Miller. Edmund Miller, Yan Fang, Alexa M. Salsbury, and Kaitlyn Saunders contributed to the development of the pipeline and documentation throughout the NCBI North Texas Codeathon event (2021). 
+**nf-core/teamrna** was originally written by Edmund Miller. Edmund Miller, Yan Fang, Alexa M. Salsbury, and Kaitlyn Saunders contributed to the development of the pipeline and documentation throughout the NCBI North Texas Codeathon event (2021). 
 
 ## Citation
 
