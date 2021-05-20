@@ -86,7 +86,19 @@ To demonstrate our work's effectiveness, we will analyze the following ARDS data
 
 nf-core/teamrna was originally written by Edmund Miller. Edmund Miller, Kaitlyn Saunders, Yan Fang, and Alexa M. Salsbury contributed to the development of the pipeline and documentation throughout the NCBI North Texas Codeathon event (2021). 
 
-## Citations
+## Citation
+If you find that our pipeline helped you to analyze single cell RNA-seq datasets, please reference the following:
+
+CITE NF-CORE <!-- If you use  nf-core/teamrna for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
+
+> **The nf-core framework for community-curated bioinformatics pipelines.**
+>
+> Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.
+>
+> _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).
+
+## References 
+
 [1] 	Kukurba, K. R.; Montgomery, S. B. RNA Sequencing and Analysis. Cold Spring Harb. Protoc. 2015, 2015 (11), 951–969.
 
 [2] 	Satija, R.; Farrell, J. A.; Gennert, D.; Schier, A. F.; Regev, A. Spatial Reconstruction of Single-Cell Gene Expression Data. Nat. Biotechnol. 2015, 33 (5), 495–502.
@@ -113,12 +125,3 @@ nf-core/teamrna was originally written by Edmund Miller. Edmund Miller, Kaitlyn 
 
 
 
-CITE NF-CORE <!-- If you use  nf-core/teamrna for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-
-
-> **The nf-core framework for community-curated bioinformatics pipelines.**
->
-> Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.
->
-> _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).
