@@ -21,9 +21,8 @@ process GEO_DOWNLOAD {
     val id
 
     output:
-    path "*.mtx"            , optional:true    , emit: matrix
-    path "*.genes.tsv"      , optional:true    , emit: genes
-    path "*.barcodes.tsv"   , optional:true    , emit: barcodes
+    path "${id}/*.tar"      , optional:true    , emit: tar
+    path "${id}/*.gz"      , optional:true    , emit: tar
     // path "*.RData"       , optional:true    , emit: rdata
     // path "*.version.txt" , emit: version
 

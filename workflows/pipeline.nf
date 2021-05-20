@@ -40,6 +40,7 @@ multiqc_options.args += params.multiqc_title ? " --title \"$params.multiqc_title
 
 // Modules: local
 include { GET_SOFTWARE_VERSIONS } from '../modules/local/get_software_versions'   addParams( options: [publish_files : ['csv':'']] )
+include { GEO_DOWNLOAD } from '../modules/local/geo_download'   addParams( options: modules['geo_download'] )
 
 // Modules: nf-core/modules
 include { MULTIQC               } from '../modules/nf-core/software/multiqc/main' addParams( options: multiqc_options              )
