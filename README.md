@@ -89,9 +89,12 @@ nf-core/teamrna was originally written by Edmund Miller. Edmund Miller, Yan Fang
 
 ## Citation
 If you find that our pipeline helped you to analyze single cell RNA-seq datasets, please reference the following:
-E. Miller, Y. Fang, A. Salsbury, and K. Saunders. All in one scRNA-seq Pipeline: Data Downloading to Analysis. 2021. _https://github.com/NCBI-Codeathons/lung-rna-seq_. 
 
-CITE NF-CORE <!-- If you use  nf-core/teamrna for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
+ <!-- E. Miller, Y. Fang, A. Salsbury, and K. Saunders. All in one scRNA-seq Pipeline: Data Downloading to Analysis. 2021. _https://github.com/NCBI-Codeathons/lung-rna-seq_. 
+
+To cite nf-core, please reference the following:
+ 
+<!-- If you use  nf-core/teamrna for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
 > **The nf-core framework for community-curated bioinformatics pipelines.**
 >
