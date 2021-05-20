@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 library(GEOquery)
 
 args = commandArgs(trailingOnly=TRUE)
