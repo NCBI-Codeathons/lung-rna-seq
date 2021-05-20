@@ -363,49 +363,32 @@ BiocManager::install(c('BiocGenerics', 'DelayedArray', 'DelayedMatrixStats',
                        'SummarizedExperiment', 'batchelor'))
 install.packages("devtools")
 devtools::install_github('cole-trapnell-lab/leidenbase')
-#devtools::install_github('cole-trapnell-lab/monocle3')
-devtools::install_github('cole-trapnell-lab/monocle3',ref='develop')
+devtools::install_github('cole-trapnell-lab/monocle3')
+install.packages("remotes")
+remotes::install_github("satijalab/seurat-wrappers")
+
+ 
 library(monocle3)
 library(dplyr)
+library(SeuratWrappers)
 
-# convert the Seurat object to formmat used in monocle 3
-cds <- as.cell_data_set(sobj) # use seurat project sobj here
-cds <- cluster_cells(cds = sobj.cds, reduction_method = "UMAP")
-cds <- learn_graph(sobj.cds, use_partition = TRUE)
-cds <- order_cells(sobj.cds, reduction_method = "UMAP", root_cells = hsc)
-# Generate a cell_data_set from 10X output
-#cds <- load_mm_data(mat_path = matrix_file, 
-#                    feature_anno_path = gene_file , 
-#                    cell_anno_path =  barcodes_file)
- 
-#Pre-process the data
-cds <- preprocess_cds(cds, num_dim = 100)
-#Reduce dimensionality and visualize the cells
-cds <- reduce_dimension(cds)
-rowData(cds)$gene_short_name <- rowData(cds)$V2
-#Clusterring
-cds = cluster_cells(cds)
-## Learn a graph
-cds <- learn_graph(cds)
-## Order cells
-cds <- order_cells(cds)
 
-library(stringr)
-colData(cds)$sample =  str_sub(rownames(colData(cds)),-1,-1)
-colData(cds_subset)$sample =  str_sub(rownames(colData(cds_subset)),-1,-1)
-#Subset cells
-cds_subset <- choose_cells(cds)
-cds_subset <- reduce_dimension(cds_subset)
-#dentify genes that are differentially expressed in different subsets of
-# cells from this partition:
-pr_graph_test_res <- graph_test(cds_subset, neighbor_graph="knn", cores=8)
-pr_deg_ids <- row.names(subset(pr_graph_test_res, morans_I > 0.01 & q_value < 0.05))
-gene_module_df <- find_gene_modules(cds_subset[pr_deg_ids,], resolution=1e-3)
-plot_cells(cds_subset, genes=gene_module_df, 
-           show_trajectory_graph=FALSE, 
-           label_cell_groups=FALSE)
-cds_subset = cluster_cells(cds_subset)
-plot_cells(cds_subset, color_cells_by="cluster")
+DimPlot(Epcamsmartseq)
+cds <- as.cell_data_set(Epcamsmartseq) # use seurat project sobj here
+cds <- cluster_cells(cds = cds, reduction_method = "UMAP")
+cds <- learn_graph(cds, use_partition = TRUE)
+cds <- order_cells(cds, reduction_method = "UMAP")
+rowData(cds)$gene_short_name <- rownames(rowData(cds))
+plot_cells(cds,
+           color_cells_by = "pseudotime",
+           label_cell_groups=FALSE,
+           label_leaves=FALSE,
+           label_branch_points=FALSE,
+           graph_label_size=1.5)
+
+AFD_genes <- c("Ly6c2")
+AFD_lineage_cds <- cds[rowData(cds)$gene_short_name %in% AFD_genes, ]
+plot_genes_in_pseudotime(AFD_lineage_cds, min_expr=0.5)
 
 #Trajectory
 cds_subset <- learn_graph(cds_subset)
