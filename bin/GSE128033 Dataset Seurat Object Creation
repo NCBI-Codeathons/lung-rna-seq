@@ -17,7 +17,6 @@ install.packages("msigdbr")
 BiocManager::install("fgsea")
 
 
-#note, and I quote, "Monocle3 is hell to install". But here are their instructions:
 https://cole-trapnell-lab.github.io/monocle3/docs/installation/ 
   
   
