@@ -17,7 +17,6 @@ install.packages("msigdbr")
 BiocManager::install("fgsea")
 
 
-#note, and I quote, "Monocle3 is hell to install". But here are their instructions:
 https://cole-trapnell-lab.github.io/monocle3/docs/installation/ 
   
   
@@ -80,7 +79,7 @@ library(velocyto.R)
   library(BiocManager)
   library(GEOquery) 
  
- #dataset to use :D https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128033
+ #dataset to use https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128033
  
 #Put NCBI GEO# into the inside of the parentheses. (ex. GSE12345)  
 filePaths = getGEOSuppFiles("GSE128033")  
